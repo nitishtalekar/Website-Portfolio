@@ -1,0 +1,57 @@
+﻿NITISH PRAVIN TALEKAR
+nitishtalekar.nt503@gmail.com|linkedin.com/in/nitishtalekar|github.com/nitishtalekar
+
+
+PROFESSIONAL EXPERIENCE
+Lead Software Engineer, Jabali AI                                                                                              January 2024 – Present
+* Developed a comprehensive client-side and server-side architecture for generative AI models, serving as a fullstack developer, leveraging TypeScript to establish a scalable, high-performance game generation for multi-layered, dynamically evolving gaming environments.
+* Orchestrated the seamless integration of React and Next.js across both web and Discord platforms, ensuring an intuitive, high-efficiency user experience while optimizing authentication workflows and game generation pipelines, while adhering to web standards and accessibility best practices.
+* Engineered a robust backend ecosystem utilizing Python-powered RESTful APIs, to facilitate high-throughput API-to-application integrations, ensuring ultra-low latency communication between the game engine and AI-driven game mechanics.
+* Designed and optimized relational database schemas and SQL queries to support scalable application performance.
+* Maintained CI/CD pipelines for automated build, testing, and deployment workflows  across AWS and GCP cloud environments.
+Research Programmer, NC State University                                                                          July 2023 – December 2023
+* Designed and implemented an innovative educational platform, featuring an interactive text-based escape room game, in ReactJS and Python with complete analytics, to serve Biomedical graduates and Naval post-graduates across universities nationwide.
+* Inspected the impact of 3 types of hint systems in text-based games within an educational context, focusing on enhancing player efficiency and confidence.
+* Consolidated and streamlined the outreach process with clients, subject matter experts, developers and academics resulting in more engagement from potential partners. 
+Software Engineer Co−op, Nokia                                                                                      January 2023 – May 2023
+* Devised 5+ unit and integration tests per feature to verify conformance of functionality using threaded automation and Pytest framework to ensure completion of VSP-SDN features and infrastructure.
+* Performed scale and stress tests by simulating real world conditions on test devices by constructing automation events to recreate field scenarios improving testing efficiency by 10% through the introduction of threaded automation.
+* Implemented a monitoring system for 40 devices under test, enhancing the maintenance efficiency of 4+ testbed topologies.
+* Spearheaded the rollout of sanity systems with 20+ conformance tests, validating standardization of testbed.
+Assistant Instructor, NC State AI Academy                                                                        April 2022 – December 2022
+* Instructed 5-week Human Computer Interaction course at the academy, including 3 hands-on workshops, effectively communicating technical concepts to both technical and non-technical audiences.
+* Remodeled Python course curriculum and redesigned 10+ workshop sessions to inculcate supplemental and upcoming content.
+* Mentored 70+ students in Artificial Intelligence and Machine Learning workshops.
+Full Stack Development Intern, Innovative Education Lab - NC State University                                February 2022 – July 2022
+* Revamped an Adaptive Learning Platform based on OpenEdx using Django and incorporated custom built algorithms and applications using SpringBoot to improve computation time by 15%.
+* Streamlined installation and reboot processes on 5 lab servers and standardized development documentation. 
+
+
+EDUCATION
+North Carolina State University, USA                                                                          August 2021 – May 2023
+Master of Computer Science (GPA 3.85/4.0)                
+University of Mumbai, India                                                                                        June 2016 – October 2020
+Bachelor of Engineering, Computer Engineering (GPA 8.96/10)                                
+
+
+SKILLS
+* Programming Languages: PHP, JavaScript, TypeScript, Python3, C, Java, R, C++.
+* Technologies and frameworks: NodeJs, ReactJS, Next.js, Django, Flask, Laravel, EC2, S3, Sagemaker, AWS.
+* Databases: SQL, MySQL, MongoDB, NoSQL, Postgres.
+* Software Tools: Git, Jenkins, JIRA, Docker.
+
+
+TECHNICAL PROJECTS
+MACHINE LEARNING - Autonomous Classification Model Generator
+* Engineered a web based Bot in Django  to create and compare predictive 5 classification models with data visualization on the basis of 12 metrics for any given dataset using diverse classification techniques  in Python using Tensorflow and Scikit-learn. 
+WEB DEVELOPMENT - Institutional Feedback System
+* Constructed a web-based feedback system for the Institute using HTML, PHP, JavaScript and Ajax, including development of RESTful endpoints and relational database design.
+ARTIFICIAL INTELLIGENCE - Chess Engine
+* Developed an algorithm to simulate human-like thinking in the game of chess to play the best possible move using Decision tree and Optimization techniques. Enhanced algorithm to think up to depth of level 5 analyzing over 80000+ moves for each response.
+DATA ANALYSIS - Result Analysis Software
+* Evaluated results of students of the institute and provided detailed visual reports based on observations in data using Python. Created a User interface using Tkinter and an executable file for office use. The application is currently operational.
+
+
+LEADERSHIP AND VOLUNTEERING
+Founder – CodeCell RGIT                                                                                                                 2018-2020
+* Instituted a community of project developers and coding enthusiasts, with the participation of over 200 students. Organized City-level hackathons. Conducted seminars on Web development and Python. Led 5+ cross functional teams on various software projects.
