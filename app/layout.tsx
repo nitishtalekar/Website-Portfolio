@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   title: "Nitish Talekar – Software engineer",
   description:
     "Lead Software Engineer at Jabali AI building AI-generated games. Work, projects, research and writing by Nitish Talekar.",
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     title: "Nitish Talekar",
     description: "Software engineer. Builds AI-generated games, reads, plays, drinks coffee.",
