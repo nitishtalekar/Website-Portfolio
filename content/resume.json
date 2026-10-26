@@ -1,0 +1,434 @@
+{
+  "profile": {
+    "firstName": "Nitish",
+    "lastName": "Talekar",
+    "role": "Lead Software Engineer",
+    "org": "Jabali AI",
+    "tagline": "I build AI that generates games.",
+    "aside": "Plays games. Reads books. Runs on coffee.",
+    "email": "nitishtalekar.nt503@gmail.com",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/nitishtalekar"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com/in/nitishtalekar"
+      }
+    ]
+  },
+  "chapters": [
+    {
+      "id": "intro",
+      "label": "Hello",
+      "icon": "cup"
+    },
+    {
+      "id": "work",
+      "label": "Work",
+      "icon": "sword"
+    },
+    {
+      "id": "projects",
+      "label": "Projects",
+      "icon": "gamepad"
+    },
+    {
+      "id": "research",
+      "label": "Research",
+      "icon": "book"
+    },
+    {
+      "id": "stack",
+      "label": "Stack",
+      "icon": "dice"
+    },
+    {
+      "id": "education",
+      "label": "Education",
+      "icon": "glasses"
+    },
+    {
+      "id": "community",
+      "label": "Community",
+      "icon": "heart"
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "icon": "bean"
+    }
+  ],
+  "work": {
+    "title": "Work",
+    "sub": "Newest first. Open a role for the details.",
+    "items": [
+      {
+        "id": "jabali-ai",
+        "when": "Jan 2024 – Present",
+        "title": "Jabali AI",
+        "subtitle": "Lead Software Engineer",
+        "summary": "Full-stack lead for the platform that turns generative AI into playable, evolving game worlds.",
+        "points": [
+          "Built the TypeScript client and server architecture behind generative-AI game creation for layered, dynamically evolving environments.",
+          "Shipped React and Next.js experiences on web and Discord, improving authentication and the generation pipeline with accessibility in mind.",
+          "Engineered Python REST APIs for high-throughput, low-latency links between the game engine and AI-driven mechanics.",
+          "Designed relational schemas and SQL queries that scale.",
+          "Run CI/CD pipelines for build, test and deploy across AWS and GCP."
+        ],
+        "highlights": [
+          {
+            "value": "2",
+            "label": "surfaces: web and Discord"
+          },
+          {
+            "value": "2",
+            "label": "clouds: AWS and GCP"
+          }
+        ],
+        "tags": [
+          "TypeScript",
+          "ReactJS",
+          "Next.js",
+          "Python3",
+          "SQL",
+          "AWS"
+        ]
+      },
+      {
+        "id": "ncsu-research",
+        "when": "Jul 2023 – Dec 2023",
+        "title": "NC State University",
+        "subtitle": "Research Programmer",
+        "summary": "A text-based escape room that teaches, and a study of how hints change the way people play.",
+        "points": [
+          "Built an interactive text-based escape-room game in React and Python, with full analytics, for biomedical graduates and naval post-graduates nationwide.",
+          "Studied three types of hint systems for their effect on player efficiency and confidence.",
+          "Streamlined outreach to clients, experts, developers and academics, drawing more partner engagement."
+        ],
+        "highlights": [
+          {
+            "value": "3",
+            "label": "hint systems studied"
+          }
+        ],
+        "tags": [
+          "ReactJS",
+          "Python3"
+        ]
+      },
+      {
+        "id": "nokia",
+        "when": "Jan 2023 – May 2023",
+        "title": "Nokia",
+        "subtitle": "Software Engineer Co-op",
+        "summary": "Made network software prove itself with automated tests, stress scenarios and monitoring.",
+        "points": [
+          "Wrote 5+ unit and integration tests per feature with Pytest and threaded automation for VSP-SDN.",
+          "Ran scale and stress tests that recreate field scenarios; threaded automation improved testing efficiency by 10%.",
+          "Built monitoring for 40 devices under test, easing upkeep across 4+ testbed topologies.",
+          "Led rollout of sanity suites with 20+ conformance tests to standardize the testbed."
+        ],
+        "highlights": [
+          {
+            "value": "10%",
+            "label": "faster testing"
+          },
+          {
+            "value": "40",
+            "label": "devices monitored"
+          },
+          {
+            "value": "20+",
+            "label": "conformance tests"
+          }
+        ],
+        "tags": [
+          "Python3",
+          "Pytest"
+        ]
+      },
+      {
+        "id": "ai-academy",
+        "when": "Apr 2022 – Dec 2022",
+        "title": "NC State AI Academy",
+        "subtitle": "Assistant Instructor",
+        "points": [
+          "Taught a 5-week Human Computer Interaction course with 3 hands-on workshops, to technical and non-technical audiences.",
+          "Remodeled the Python curriculum and redesigned 10+ workshop sessions.",
+          "Mentored 70+ students in AI and machine-learning workshops."
+        ],
+        "highlights": [
+          {
+            "value": "70+",
+            "label": "students mentored"
+          },
+          {
+            "value": "10+",
+            "label": "workshops redesigned"
+          }
+        ],
+        "tags": [
+          "Python3"
+        ],
+        "summary": "Taught human-computer interaction and mentored students through their first machine-learning projects."
+      },
+      {
+        "id": "iel-intern",
+        "when": "Feb 2022 – Jul 2022",
+        "title": "Innovative Education Lab, NC State",
+        "subtitle": "Full Stack Development Intern",
+        "points": [
+          "Revamped an OpenEdX-based adaptive learning platform in Django, adding custom algorithms and SpringBoot apps that improved computation time by 15%.",
+          "Streamlined installation and reboot on 5 lab servers and standardized development documentation."
+        ],
+        "highlights": [
+          {
+            "value": "15%",
+            "label": "faster computation"
+          },
+          {
+            "value": "5",
+            "label": "lab servers"
+          }
+        ],
+        "tags": [
+          "Django",
+          "Python3"
+        ],
+        "summary": "Modernized an adaptive learning platform and tidied the lab servers that ran it."
+      }
+    ],
+    "pageSize": 3
+  },
+  "projects": {
+    "title": "Projects",
+    "sub": "Side quests, cleared.",
+    "items": [
+      {
+        "id": "chess-engine",
+        "title": "Chess Engine",
+        "subtitle": "Artificial Intelligence",
+        "summary": "Simulates human-like thinking to find the best move, using decision trees and optimization. Looks five levels deep, weighing 80,000+ moves per response.",
+        "highlights": [
+          {
+            "value": "5",
+            "label": "levels deep"
+          },
+          {
+            "value": "80,000+",
+            "label": "moves per response"
+          }
+        ]
+      },
+      {
+        "id": "classification-generator",
+        "title": "Classification Model Generator",
+        "subtitle": "Machine Learning",
+        "summary": "A Django bot that builds and compares five classification models for any dataset, visualized across 12 metrics with TensorFlow and Scikit-learn.",
+        "highlights": [
+          {
+            "value": "5",
+            "label": "models compared"
+          },
+          {
+            "value": "12",
+            "label": "metrics"
+          }
+        ],
+        "tags": [
+          "Django",
+          "Python3",
+          "TensorFlow",
+          "Scikit-learn"
+        ]
+      },
+      {
+        "id": "feedback-system",
+        "title": "Institutional Feedback System",
+        "subtitle": "Web Development",
+        "summary": "A web feedback system for the institute: HTML, JavaScript and Ajax in front, PHP RESTful endpoints and a relational database behind.",
+        "tags": [
+          "PHP",
+          "JavaScript",
+          "SQL"
+        ]
+      },
+      {
+        "id": "result-analysis",
+        "title": "Result Analysis Software",
+        "subtitle": "Data Analysis",
+        "summary": "Turns student results into detailed visual reports in Python, with a Tkinter interface shipped as an executable. Still in daily use.",
+        "tags": [
+          "Python3",
+          "Tkinter"
+        ]
+      }
+    ],
+    "pageSize": 4
+  },
+  "research": {
+    "title": "Research",
+    "sub": "Papers, with links as they land.",
+    "scholar": {
+      "label": "Google Scholar",
+      "url": "",
+      "pending": "Google Scholar, soon"
+    },
+    "items": [
+      {
+        "id": "opinion-dynamics",
+        "when": "2025",
+        "title": "Multi-turn Opinion Dynamics Simulation",
+        "subtitle": "Twelfth Annual Conference on Advances in Cognitive Systems",
+        "links": [],
+        "pending": "Paper link on its way"
+      },
+      {
+        "id": "crop-disease",
+        "when": "2020",
+        "title": "A Comparative Study on Crop Disease Detection using Deep Learning Techniques",
+        "subtitle": "International Research Journal of Engineering and Technology (IRJET)",
+        "links": [],
+        "pending": "Paper link on its way"
+      }
+    ],
+    "pageSize": 4
+  },
+  "stack": {
+    "title": "Stack",
+    "sub": "My loadout.",
+    "groups": [
+      {
+        "label": "Languages",
+        "items": [
+          "TypeScript",
+          "JavaScript",
+          "Python3",
+          "Java",
+          "C++",
+          "C",
+          "PHP",
+          "R"
+        ]
+      },
+      {
+        "label": "Frameworks and cloud",
+        "items": [
+          "ReactJS",
+          "Next.js",
+          "NodeJs",
+          "Django",
+          "Flask",
+          "Laravel",
+          "AWS",
+          "EC2",
+          "S3",
+          "Sagemaker"
+        ]
+      },
+      {
+        "label": "Databases",
+        "items": [
+          "SQL",
+          "Postgres",
+          "MySQL",
+          "MongoDB",
+          "NoSQL"
+        ]
+      },
+      {
+        "label": "Tools",
+        "items": [
+          "Git",
+          "Docker",
+          "Jenkins",
+          "JIRA"
+        ]
+      }
+    ]
+  },
+  "education": {
+    "title": "Education",
+    "sub": "Two degrees, one long reading list.",
+    "items": [
+      {
+        "id": "ncsu",
+        "when": "Aug 2021 – May 2023",
+        "title": "North Carolina State University",
+        "subtitle": "Master of Computer Science",
+        "details": [
+          {
+            "label": "Location",
+            "value": "USA"
+          },
+          {
+            "label": "GPA",
+            "value": "3.85 / 4.0"
+          }
+        ]
+      },
+      {
+        "id": "mumbai",
+        "when": "Jun 2016 – Oct 2020",
+        "title": "University of Mumbai",
+        "subtitle": "Bachelor of Engineering, Computer Engineering",
+        "details": [
+          {
+            "label": "Location",
+            "value": "India"
+          },
+          {
+            "label": "GPA",
+            "value": "8.96 / 10"
+          }
+        ]
+      }
+    ]
+  },
+  "community": {
+    "title": "Community",
+    "sub": "Multiplayer mode.",
+    "items": [
+      {
+        "id": "codecell",
+        "when": "2018 – 2020",
+        "title": "CodeCell RGIT",
+        "subtitle": "Founder",
+        "summary": "Founded a community of 200+ student developers. Ran city-level hackathons, seminars on web development and Python, and led 5+ cross-functional teams on real software projects.",
+        "highlights": [
+          {
+            "value": "200+",
+            "label": "students"
+          },
+          {
+            "value": "5+",
+            "label": "teams led"
+          }
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Say hello",
+    "sub": "Replies faster than coffee cools.",
+    "hint": "Click to copy.",
+    "copied": "Copied. Go refill your coffee.",
+    "mail": "Or open your mail app.",
+    "now": [
+      {
+        "label": "Playing",
+        "text": "A backlog that never shrinks"
+      },
+      {
+        "label": "Reading",
+        "text": "Three books, none finished"
+      },
+      {
+        "label": "Drinking",
+        "text": "Coffee, obviously"
+      }
+    ]
+  }
+}

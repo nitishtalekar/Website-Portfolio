@@ -1,0 +1,245 @@
+/* ---------- Top bar ---------- */
+.bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 10;
+  height: var(--bar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--gutter);
+  background: linear-gradient(var(--bg) 55%, transparent);
+  pointer-events: none;
+}
+
+.bar > * {
+  pointer-events: auto;
+}
+
+.monogram {
+  font-weight: 800;
+  font-stretch: 118%;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  transition: color var(--t-fast);
+}
+
+@media (hover: hover) {
+  .monogram:hover {
+    color: var(--accent);
+  }
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.75rem;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  transition: color var(--t-fast);
+}
+
+@media (hover: hover) {
+  .menuButton:hover {
+    color: var(--ink);
+  }
+}
+
+.here {
+  display: grid;
+  color: var(--accent);
+}
+
+.burger {
+  width: 1rem;
+  height: 0.5rem;
+  border-block: 1px solid var(--accent);
+}
+
+/* ---------- Bottom tick strip ---------- */
+.ticks {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding-bottom: max(0.25rem, env(safe-area-inset-bottom));
+  padding-top: 0.5rem;
+  background: linear-gradient(transparent, var(--bg) 70%);
+  pointer-events: none;
+}
+
+.ticks ol {
+  display: flex;
+  gap: 0.1rem;
+  pointer-events: auto;
+}
+
+.tick {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: var(--tick-h);
+  color: var(--ink-3);
+  opacity: 0.7;
+  transition:
+    color var(--t-med) var(--ease),
+    opacity var(--t-med) var(--ease),
+    transform var(--t-med) var(--ease);
+}
+
+/* Passed chapters keep a trace of green; the current one lifts and glows to full. */
+.tick[data-state="past"] {
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.tick[data-state="current"] {
+  color: var(--accent);
+  opacity: 1;
+  transform: translateY(-0.2rem) scale(1.2);
+}
+
+.tick[data-state="current"]::before {
+  content: "";
+  position: absolute;
+  bottom: 0.35rem;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.tick::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% - 0.25rem);
+  left: 50%;
+  transform: translate(-50%, 0.25rem);
+  padding: 0.2rem 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--t-fast),
+    transform var(--t-med) var(--ease);
+}
+
+@media (hover: hover) {
+  .tick:hover {
+    color: var(--ink);
+    opacity: 1;
+  }
+
+  .tick[data-state="current"]:hover {
+    color: var(--accent-hi);
+  }
+
+  .tick:hover::after,
+  .tick:focus-visible::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ---------- Full-screen index ---------- */
+.menu {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  border: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.menu[open] {
+  animation: menuIn var(--t-med) var(--ease);
+}
+
+.menu::backdrop {
+  background: var(--bg);
+}
+
+.menuInner {
+  min-height: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+  padding: 1rem var(--gutter) 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.close {
+  align-self: flex-end;
+  min-height: 2.75rem;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.menuList {
+  margin-block: auto;
+  padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuLink {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding-block: 0.25rem;
+  font-size: clamp(1.5rem, min(5vw, 6vh), 3rem);
+  font-weight: 800;
+  font-stretch: 118%;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  transition:
+    color var(--t-fast),
+    transform var(--t-med) var(--ease);
+}
+
+@media (hover: hover) {
+  .menuLink:hover {
+    color: var(--ink);
+    transform: translateX(0.5rem);
+  }
+}
+
+.menuLink[aria-current="location"] {
+  color: var(--accent);
+}
+
+.menuIcon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.menuIcon {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  width: 3rem;
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.menuHint {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+  }
+}

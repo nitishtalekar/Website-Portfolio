@@ -1,0 +1,72 @@
+.header {
+  margin-bottom: clamp(1.25rem, 4.5vh, 3rem);
+}
+
+/* Titles are wide, heavy capitals: the one loud voice on each page. */
+.title {
+  font-size: clamp(2rem, min(5.6vw, 9vh), 4.75rem);
+  font-weight: 800;
+  font-stretch: 118%;
+  letter-spacing: 0.005em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* The title rises out of a mask as the chapter arrives. */
+.mask {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.06em;
+  margin-block: -0.06em;
+}
+
+.rise {
+  display: block;
+}
+
+@media (scripting: enabled) {
+  :global(section:not([data-seen])) .rise {
+    transform: translateY(110%);
+  }
+}
+
+:global(section[data-seen]) .rise {
+  animation: rise 900ms var(--ease) backwards;
+}
+
+.icon {
+  display: inline-block;
+  margin-left: 0.4em;
+  color: var(--accent);
+  vertical-align: 0.02em;
+}
+
+.icon svg {
+  width: 0.62em;
+  height: 0.62em;
+}
+
+.sub {
+  margin-top: 0.75rem;
+  font-family: var(--font-prose);
+  font-style: italic;
+  font-size: clamp(1.0625rem, 0.8vw + 0.85rem, 1.25rem);
+  line-height: 1.4;
+  color: var(--ink-3);
+}
+
+:global(section[data-seen]) .sub {
+  animation: fade 700ms var(--ease) 260ms backwards;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}

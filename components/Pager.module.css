@@ -1,0 +1,44 @@
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  color: var(--ink-3);
+}
+
+.count {
+  min-width: 3rem;
+  text-align: center;
+  font-family: var(--font-data);
+  font-size: 0.75rem;
+}
+
+.step {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--line-2);
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition:
+    border-color var(--t-fast),
+    color var(--t-fast),
+    transform var(--t-med) var(--ease);
+}
+
+.step:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (hover: hover) {
+  .step:not(:disabled):hover {
+    border-color: var(--accent);
+    color: var(--accent-hi);
+  }
+
+  .step:not(:disabled):active {
+    transform: scale(0.92);
+  }
+}

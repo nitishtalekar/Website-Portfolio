@@ -1,0 +1,146 @@
+.path {
+  display: flex;
+  flex-direction: column;
+}
+
+.stop {
+  display: grid;
+  grid-template-columns: 11rem 1.25rem minmax(0, 1fr);
+  column-gap: 1.5rem;
+}
+
+.when {
+  padding-top: 0.35rem;
+  font-family: var(--font-data);
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  text-align: right;
+}
+
+/* The route: a line down the middle, a checkpoint at each stop. */
+.rail {
+  position: relative;
+}
+
+.rail::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0.9rem;
+  bottom: -0.1rem;
+  width: 1px;
+  background: var(--line-2);
+  transform: translateX(-50%);
+}
+
+.stop:last-child .rail::before {
+  display: none;
+}
+
+.node {
+  position: absolute;
+  left: 50%;
+  top: 0.4rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--bg);
+  transform: translateX(-50%);
+  transition:
+    background var(--t-med) var(--ease),
+    transform var(--t-med) var(--ease);
+}
+
+.stop[data-open="true"] .node {
+  background: var(--accent);
+  transform: translateX(-50%) scale(1.25);
+}
+
+.main {
+  padding-bottom: 1.75rem;
+}
+
+.head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1rem;
+  align-items: baseline;
+  column-gap: 1rem;
+  text-align: left;
+}
+
+.head > .title {
+  grid-column: 1;
+}
+
+.head > .subtitle {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.head > :last-child:not(.title):not(.subtitle) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+button.head {
+  cursor: pointer;
+}
+
+.title {
+  font-size: clamp(1.4rem, min(2.2vw + 0.6rem, 4.4vh), 2.25rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  transition: color var(--t-fast);
+}
+
+.subtitle {
+  margin-top: 0.4rem;
+  font-family: var(--font-prose);
+  font-size: 1.1875rem;
+  color: var(--ink-2);
+}
+
+.stop[data-open="true"] .title {
+  color: var(--accent);
+}
+
+@media (hover: hover) {
+  button.head:hover .title {
+    color: var(--accent-hi);
+  }
+}
+
+@media (max-width: 48em) {
+  .stop {
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    column-gap: 1rem;
+  }
+
+  .when {
+    grid-column: 2;
+    grid-row: 1;
+    padding-top: 0;
+    text-align: left;
+  }
+
+  .rail {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .main {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .node {
+    top: 0.1rem;
+  }
+
+  .rail::before {
+    top: 0.6rem;
+  }
+}

@@ -1,0 +1,18 @@
+.collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--t-med) var(--ease),
+    opacity var(--t-med) var(--ease);
+}
+
+.collapse[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.clip {
+  overflow: hidden;
+  min-height: 0;
+}

@@ -1,0 +1,39 @@
+.plus {
+  position: relative;
+  display: block;
+  width: 0.875rem;
+  height: 0.875rem;
+  align-self: center;
+  justify-self: end;
+}
+
+.plus::before,
+.plus::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: 1px;
+  background: var(--ink-3);
+  transition:
+    transform var(--t-med) var(--ease),
+    background var(--t-fast);
+}
+
+.plus::after {
+  transform: rotate(90deg);
+}
+
+.plus[data-open="true"]::after {
+  transform: rotate(0);
+}
+
+.plus[data-open="true"]::before,
+.plus[data-open="true"]::after {
+  background: var(--accent);
+}
+
+/* Lights up when the row it belongs to is hovered (rows are <button>s or have a button head). */
+:global(button):hover > .plus::before,
+:global(button):hover > .plus::after {
+  background: var(--accent);
+}

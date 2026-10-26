@@ -1,0 +1,52 @@
+.section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-start;
+  scroll-snap-align: start;
+  /* Fast flicks land on the next chapter instead of skipping over it. */
+  scroll-snap-stop: always;
+  /* Top clears the bar; bottom clears the tick strip. */
+  padding-block: calc(var(--bar-h) + clamp(1rem, 6vh, 4rem)) calc(var(--tick-h) + 1rem);
+  padding-inline: var(--gutter);
+}
+
+.section.center {
+  align-items: center;
+}
+
+.inner {
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+}
+
+/* Entrance: content settles in once, the first time a chapter nears the viewport.
+   Animation (not transition) with `backwards` fill so children keep their own hover motion. */
+.inner > :not(header) {
+  --n: 1;
+}
+.inner > :nth-child(3) {
+  --n: 2;
+}
+.inner > :nth-child(4) {
+  --n: 3;
+}
+
+@media (scripting: enabled) {
+  .section:not([data-seen]) .inner > * {
+    opacity: 0;
+  }
+}
+
+.section[data-seen] .inner > :not(header) {
+  animation: settle var(--t-slow) var(--ease) backwards;
+  animation-delay: calc(120ms + var(--n) * 90ms);
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}

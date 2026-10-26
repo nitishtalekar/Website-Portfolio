@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nitish Talekar: portfolio
 
-## Getting Started
-
-First, run the development server:
+A single-page, section-snapping portfolio. Next.js App Router, CSS Modules, no Tailwind.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000
+npm run build   # fully static output
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Everything lives in `content/resume.json`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The site renders that one file and nothing else. It holds the content exactly as it is displayed: dates are already formatted strings, lists are in display order, and nothing is sorted, counted or derived in code.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| To change...                    | Edit in `resume.json`                         |
+| ------------------------------- | --------------------------------------------- |
+| Name, tagline, links, email     | `profile`                                     |
+| Nav order, labels, symbols      | `chapters` (`icon` is a name from `components/Icon.tsx`) |
+| A job / project / paper / degree| the `items` array of `work`, `projects`, `research`, `education`, `community` |
+| How many show per page          | `pageSize` on `work`, `projects`, `research`  |
+| Skills                          | `stack.groups`                                |
+| Scholar link                    | `research.scholar.url` (empty shows a placeholder) |
+| The "right now" strip           | `contact.now`                                 |
+| Section titles and one-liners   | each section's `title` and `sub`              |
 
-## Learn More
+Field reference: `content/types.ts`.
 
-To learn more about Next.js, take a look at the following resources:
+Each entry is the same shape (`Row`): `title`, optional `subtitle`, `when`, `summary`, `points`, `highlights`, `details`, `tags`, `links`. Only the title line shows by default; everything else opens on click.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Growing and older entries
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+There is no separate archive: older entries just sit further down their list. Once a section has more entries than its `pageSize`, a pager (`< 1 / 2 >`) appears under it. Put the newest first.
 
-## Deploy on Vercel
+### One form per chapter
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Each chapter presents the same entries differently, drawn from the same tokens: Work is a list, Projects are cards, Research is a stack of books, Stack is an inventory, Education is a path, Community is a statement. Swapping a section's component in `app/page.tsx` is all it takes to change its form.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How the scrolling works
+
+`html` uses `scroll-snap-type: y mandatory`; every chapter is a `min-height: 100dvh` section with `scroll-snap-align: start` and `scroll-snap-stop: always`. A chapter that outgrows the viewport (a row opened on a short screen, a long list) simply gets taller, and browsers let you scroll freely inside it before snapping onward, so there is no nested scroller.
+
+Navigation: a top bar (monogram, current chapter symbol, opens a full-screen index), a strip of symbols along the bottom edge (coffee, games, books), and `j` / `k` keys. `components/Chapters.tsx` owns all of it, plus the observers that trigger entrances.

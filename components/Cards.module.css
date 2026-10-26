@@ -1,0 +1,71 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr));
+  gap: 1rem;
+  /* Each card grows on its own; neighbours keep their height. */
+  align-items: start;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  transition:
+    border-color var(--t-med) var(--ease),
+    transform var(--t-med) var(--ease);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    border-color: var(--line-2);
+    transform: translateY(-2px);
+  }
+}
+
+.card[data-open="true"] {
+  border-color: var(--accent);
+  transform: none;
+}
+
+.head {
+  width: 100%;
+  min-height: clamp(5.5rem, 14vh, 7.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+}
+
+button.head {
+  cursor: pointer;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.category {
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
+.title {
+  font-size: clamp(1.1875rem, min(1.4vw + 0.7rem, 3.4vh), 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--ink);
+  transition: color var(--t-fast);
+}
+
+.card[data-open="true"] .title {
+  color: var(--accent);
+}
+
+.inside {
+  padding-inline: 1.25rem;
+}

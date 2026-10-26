@@ -1,0 +1,41 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 6vh, 3.5rem);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  font-size: 1rem;
+  color: var(--ink-2);
+}
+
+.title {
+  font-weight: 650;
+  color: var(--accent);
+}
+
+.when {
+  font-family: var(--font-data);
+  font-size: 0.75rem;
+  color: var(--ink-3);
+}
+
+/* The story, set like a pull-quote. */
+.statement {
+  max-width: 40rem;
+  font-family: var(--font-prose);
+  font-size: clamp(1.5rem, min(2.4vw + 0.7rem, 5vh), 2.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  text-wrap: pretty;
+}
