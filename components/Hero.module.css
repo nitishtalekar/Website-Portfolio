@@ -1,14 +1,16 @@
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .status {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: clamp(1.25rem, 4vh, 2.5rem);
   font-size: 0.9375rem;
   color: var(--ink-2);
 }
@@ -43,12 +45,10 @@
   }
 }
 
-/* The name is a cup. It fills with green on arrival, drains, and refills whenever you point at or tap it. */
 .name {
   display: flex;
   flex-direction: column;
   width: fit-content;
-  font-size: clamp(2.75rem, min(14.5vw, 19vh), 10.5rem);
   font-weight: 800;
   font-stretch: 118%;
   line-height: 0.92;
@@ -57,62 +57,224 @@
   cursor: default;
 }
 
-.line {
-  display: block;
-  white-space: nowrap;
-  color: transparent;
-  background-image: linear-gradient(to top, var(--accent) 46%, var(--ink) 54%);
-  background-size: 100% 200%;
-  background-position: 0 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  transition: background-position 1.1s var(--ease);
-}
-
-.line:nth-child(2) {
-  transition-delay: 120ms;
-  animation-delay: 620ms;
-}
-
-@media (scripting: enabled) {
-  .line {
-    animation: pour 3.4s var(--ease) 500ms backwards;
-  }
-}
-
-.name:hover .line {
-  background-position: 0 100%;
-}
-
-@keyframes pour {
-  0% {
-    background-position: 0 0;
-  }
-  38%,
-  58% {
-    background-position: 0 100%;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
-
 .lede {
-  margin-top: clamp(1.25rem, 4vh, 2.5rem);
   font-family: var(--font-prose);
-  font-size: clamp(1.25rem, 1.4vw + 0.9rem, 1.75rem);
+  font-size: clamp(1.15rem, 1.2vw + 0.85rem, 1.6rem);
   line-height: 1.3;
   color: var(--ink);
+  max-width: 34ch;
 }
 
 .aside {
-  margin-top: 0.4rem;
+  margin-top: 0.35rem;
   font-family: var(--font-prose);
   font-style: italic;
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   color: var(--ink-3);
 }
 
-.links {
-  margin-top: 1.75rem;
+.poster {
+  --name-size: clamp(2.75rem, min(8.4vw, 11vh), 7.25rem);
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: center;
+  column-gap: clamp(1.75rem, 3vw, 3rem);
+}
+
+.posterText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.75rem, 2.5vh, 1.5rem);
+}
+
+.poster .name {
+  font-size: var(--name-size);
+}
+
+.poster .links {
+  margin-top: 0.5rem;
+}
+
+/* The portrait card: a flat geometric pattern, with the cutout standing in front and a few shapes jutting past the edge. */
+.posterFig {
+  position: relative;
+  justify-self: end;
+  height: clamp(16rem, min(68vh, 130vw), 42rem);
+  aspect-ratio: 4 / 5;
+  margin-top: 6%;
+  animation: rise 900ms var(--ease) 200ms backwards;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  transition: border-color var(--t-med) var(--ease);
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--t-slow) var(--ease);
+}
+
+.jut {
+  overflow: visible;
+}
+
+.g1 {
+  fill: #181a18;
+}
+.g2 {
+  fill: #1d201d;
+}
+.g3 {
+  fill: #252825;
+}
+.g4 {
+  fill: #323532;
+}
+.accent {
+  fill: var(--accent);
+}
+.ringMono {
+  fill: none;
+  stroke: var(--ink-3);
+  stroke-width: 1.5;
+  opacity: 0.55;
+}
+
+/* The cutout is cropped flat at the card's foot but is free to rise above its top edge. */
+.cutout {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(-30% -35% 0 -35%);
+  pointer-events: none;
+}
+
+.person {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 140%;
+  height: auto;
+  max-width: none;
+  transform: translateX(-50%);
+  transition: transform var(--t-slow) var(--ease);
+}
+
+@media (hover: hover) {
+  .posterFig:hover .card {
+    border-color: var(--accent);
+  }
+
+  .posterFig:hover .jut {
+    transform: translate(0.4rem, -0.4rem);
+  }
+
+  .posterFig:hover .person {
+    transform: translateX(-50%) scale(1.02);
+  }
+}
+
+/* The name types itself out. Letters are laid out from the start (hidden), so nothing shifts as they appear. */
+.word {
+  display: block;
+  white-space: nowrap;
+}
+
+.ch,
+.stop {
+  visibility: hidden;
+}
+
+.ch[data-on],
+.stop[data-on] {
+  visibility: visible;
+}
+
+.stop {
+  color: var(--accent);
+}
+
+/* The cursor takes no width; it is a green block drawn just after the last typed letter. */
+.cursor {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 0.8em;
+}
+
+.cursor::after {
+  content: "";
+  position: absolute;
+  left: 0.05em;
+  bottom: 0;
+  width: 0.07em;
+  height: 0.8em;
+  background: var(--accent);
+  animation: blink 1.6s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* No script, or a preference for less motion: show the finished name straight away. */
+@media (scripting: none) {
+  .ch,
+  .stop {
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .poster {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .posterText {
+    align-items: center;
+  }
+
+  .poster .status {
+    justify-content: center;
+  }
+
+  .poster .links {
+    display: flex;
+    justify-content: center;
+  }
+
+  .posterFig {
+    justify-self: center;
+    order: -1;
+    height: clamp(14rem, 34vh, 20rem);
+    margin-top: 1.5rem;
+  }
 }
