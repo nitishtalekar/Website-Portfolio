@@ -26,6 +26,12 @@ Full Stack Development Intern, Innovative Education Lab - NC State University   
 * Revamped an Adaptive Learning Platform based on OpenEdx using Django and incorporated custom built algorithms and applications using SpringBoot to improve computation time by 15%.
 * Streamlined installation and reboot processes on 5 lab servers and standardized development documentation. 
 
+PUBLICATIONS
+Multi-turn Opinion Dynamics Simulation					 					      2025
+Twelfth Annual Conference on Advances in Cognitive Systems
+A Comparative Study on Crop Disease Detection using Deep Learning Techniques 					      2020
+International Research Journal of Engineering and Technology (IRJET), ISSN
+
 
 EDUCATION
 North Carolina State University, USA                                                                          August 2021 – May 2023
