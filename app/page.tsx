@@ -4,6 +4,7 @@ import CheatCode from "@/components/CheatCode";
 import Contact from "@/components/Contact";
 import Hero from "@/components/Hero";
 import Inventory from "@/components/Inventory";
+import { Paged, PagerSlot } from "@/components/Paged";
 import Rows from "@/components/Rows";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
@@ -29,18 +30,24 @@ export default function Home() {
         <Hero />
 
         <Section id="work">
-          <SectionHeader id="work" title={work.title} sub={work.sub} icon={icon("work")} />
-          <Rows items={work.items} pageSize={work.pageSize} />
+          <Paged count={work.items.length} pageSize={work.pageSize}>
+            <SectionHeader id="work" title={work.title} sub={work.sub} icon={icon("work")} aside={<PagerSlot />} />
+            <Rows items={work.items} />
+          </Paged>
         </Section>
 
         <Section id="projects">
-          <SectionHeader id="projects" title={projects.title} sub={projects.sub} icon={icon("projects")} />
-          <Cards items={projects.items} pageSize={projects.pageSize} />
+          <Paged count={projects.items.length} pageSize={projects.pageSize}>
+            <SectionHeader id="projects" title={projects.title} sub={projects.sub} icon={icon("projects")} aside={<PagerSlot />} />
+            <Cards items={projects.items} />
+          </Paged>
         </Section>
 
         <Section id="research">
-          <SectionHeader id="research" title={research.title} sub={research.sub} icon={icon("research")} />
-          <Shelf items={research.items} pageSize={research.pageSize} />
+          <Paged count={research.items.length} pageSize={research.pageSize}>
+            <SectionHeader id="research" title={research.title} sub={research.sub} icon={icon("research")} aside={<PagerSlot />} />
+            <Shelf items={research.items} />
+          </Paged>
           <p className="pending" style={{ marginTop: "1.25rem", fontSize: "0.9375rem" }}>
             {research.scholar.url ? (
               <a className="link" href={research.scholar.url} target="_blank" rel="noopener noreferrer">

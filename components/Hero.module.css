@@ -114,8 +114,5 @@
 }
 
 .links {
-  display: flex;
-  gap: 1.75rem;
   margin-top: 1.75rem;
-  font-size: 0.9375rem;
 }

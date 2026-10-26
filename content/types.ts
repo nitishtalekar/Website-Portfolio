@@ -13,6 +13,8 @@ export interface Highlight {
 export interface Link {
   label: string;
   url: string;
+  /** Optional symbol name from components/Icon.tsx. */
+  icon?: string;
 }
 
 /** One expandable row. Every field except `id` and `title` is optional. */

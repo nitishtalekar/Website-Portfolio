@@ -4,23 +4,9 @@
   gap: 0.5rem;
 }
 
-/* Uneven alignment, like books piled by hand. */
-.book {
-  --shift: 0rem;
-  margin-left: var(--shift);
-  transition: margin-left var(--t-med) var(--ease);
-}
-
-.book:nth-child(3n + 2) {
-  --shift: clamp(0.75rem, 4vw, 3.5rem);
-}
-
-.book:nth-child(3n) {
-  --shift: clamp(0.25rem, 1.5vw, 1.25rem);
-}
-
-.book[data-open="true"] {
-  margin-left: 0;
+/* Spines share one left edge and a minimum height, so a long title never nudges its neighbours. */
+.book:nth-child(even) .spine {
+  border-left-color: var(--line-2);
 }
 
 .spine {
@@ -29,6 +15,7 @@
   grid-template-columns: 4.5rem minmax(0, 1fr) 1rem;
   align-items: center;
   column-gap: 1.25rem;
+  min-height: 4rem;
   padding: 0.85rem 1.25rem 0.85rem 1rem;
   background: var(--surface);
   border: 1px solid var(--line);

@@ -28,7 +28,7 @@ Each entry is the same shape (`Row`): `title`, optional `subtitle`, `when`, `sum
 
 ### Growing and older entries
 
-There is no separate archive: older entries just sit further down their list. Once a section has more entries than its `pageSize`, a pager (`< 1 / 2 >`) appears under it. Put the newest first.
+There is no separate archive: older entries just sit further down their list. Once a section has more entries than its `pageSize`, a pager (arrows and one dot per page) appears at the right of its title, so it never moves when pages have different numbers of entries. Put the newest first.
 
 ### One form per chapter
 
@@ -38,4 +38,4 @@ Each chapter presents the same entries differently, drawn from the same tokens: 
 
 `html` uses `scroll-snap-type: y mandatory`; every chapter is a `min-height: 100dvh` section with `scroll-snap-align: start` and `scroll-snap-stop: always`. A chapter that outgrows the viewport (a row opened on a short screen, a long list) simply gets taller, and browsers let you scroll freely inside it before snapping onward, so there is no nested scroller.
 
-Navigation: a top bar (monogram, current chapter symbol, opens a full-screen index), a strip of symbols along the bottom edge (coffee, games, books), and `j` / `k` keys. `components/Chapters.tsx` owns all of it, plus the observers that trigger entrances.
+Navigation: a top bar (monogram, current chapter symbol, opens a full-screen index), a strip of symbols along the bottom edge (coffee, games, books). `components/Chapters.tsx` owns all of it, plus the observers that trigger entrances.

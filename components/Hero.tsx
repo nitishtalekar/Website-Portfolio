@@ -1,11 +1,12 @@
 import Section from "./Section";
+import SocialLinks from "./SocialLinks";
 import { resume } from "@/content/resume";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
   const p = resume.profile;
   return (
-    <Section id="intro" center>
+    <Section id="intro">
       <div className={styles.hero}>
         <p className={styles.status}>
           <span className={styles.dot} aria-hidden="true" />
@@ -17,20 +18,9 @@ export default function Hero() {
         </h1>
         <p className={styles.lede}>{p.tagline}</p>
         <p className={styles.aside}>{p.aside}</p>
-        <ul className={styles.links}>
-          {p.links.map((l) => (
-            <li key={l.url}>
-              <a className="link" href={l.url} target="_blank" rel="noopener noreferrer">
-                {l.label}
-              </a>
-            </li>
-          ))}
-          <li>
-            <a className="link" href={`mailto:${p.email}`}>
-              Email
-            </a>
-          </li>
-        </ul>
+        <div className={styles.links}>
+          <SocialLinks links={p.links} email={p.email} scholar={resume.research.scholar} />
+        </div>
       </div>
     </Section>
   );

@@ -10,11 +10,13 @@
     "links": [
       {
         "label": "GitHub",
-        "url": "https://github.com/nitishtalekar"
+        "url": "https://github.com/nitishtalekar",
+        "icon": "github"
       },
       {
         "label": "LinkedIn",
-        "url": "https://linkedin.com/in/nitishtalekar"
+        "url": "https://linkedin.com/in/nitishtalekar",
+        "icon": "linkedin"
       }
     ]
   },

@@ -40,11 +40,7 @@
 }
 
 .links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 2rem;
   margin-top: clamp(1.25rem, 4vh, 2.25rem);
-  font-size: 1.0625rem;
 }
 
 .now {

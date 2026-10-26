@@ -14,7 +14,7 @@ interface Chapter {
  * Navigation and scroll awareness for the whole page, with no sidebar:
  * a quiet top bar (monogram + current chapter), a strip of ticks along the
  * bottom edge (one per chapter, like pages in a book or checkpoints in a
- * level), a full-screen index, j/k keys, and the observers that tell
+ * level), a full-screen index, and the observers that tell
  * sections when to play their entrance.
  */
 export default function Chapters({ chapters }: { chapters: readonly Chapter[] }) {
@@ -62,23 +62,6 @@ export default function Chapters({ chapters }: { chapters: readonly Chapter[] })
     };
   }, [chapters]);
 
-  // j / k move between chapters, like every good terminal and a few good roguelikes.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
-      const direction = e.key === "j" ? 1 : e.key === "k" ? -1 : 0;
-      if (!direction) return;
-      if ((e.target as HTMLElement).closest("input, textarea, select, [contenteditable], dialog[open]")) return;
-      const next = Math.min(Math.max(activeRef.current + direction, 0), chapters.length - 1);
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      document
-        .getElementById(chapters[next].id)
-        ?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [chapters]);
-
   const closeMenu = () => menuRef.current?.close();
 
   return (
@@ -122,8 +105,10 @@ export default function Chapters({ chapters }: { chapters: readonly Chapter[] })
         onClick={(e) => e.target === menuRef.current && closeMenu()}
       >
         <div className={styles.menuInner}>
-          <button type="button" className={styles.close} onClick={closeMenu}>
-            Close
+          <button type="button" className={styles.close} onClick={closeMenu} aria-label="Close chapter index">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+              <path d="M5 5l14 14M19 5 5 19" />
+            </svg>
           </button>
           <ol className={styles.menuList}>
             {chapters.map((c, i) => (
@@ -142,9 +127,6 @@ export default function Chapters({ chapters }: { chapters: readonly Chapter[] })
               </li>
             ))}
           </ol>
-          <p className={styles.menuHint}>
-            <kbd>j</kbd> <kbd>k</kbd> also turn the pages
-          </p>
         </div>
       </dialog>
     </>

@@ -2,6 +2,21 @@
   margin-bottom: clamp(1.25rem, 4.5vh, 3rem);
 }
 
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.title {
+  min-width: 0;
+}
+
+.aside {
+  flex: none;
+}
+
 /* Titles are wide, heavy capitals: the one loud voice on each page. */
 .title {
   font-size: clamp(2rem, min(5.6vw, 9vh), 4.75rem);

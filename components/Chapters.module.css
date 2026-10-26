@@ -178,11 +178,25 @@
   flex-direction: column;
 }
 
+/* Sits exactly where the burger sits in the bar (same right edge, same height),
+   so the pointer never has to move to close what it just opened. */
 .close {
-  align-self: flex-end;
-  min-height: 2.75rem;
-  font-size: 0.875rem;
-  color: var(--ink-2);
+  position: fixed;
+  top: 0;
+  right: var(--gutter);
+  height: var(--bar-h);
+  min-width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--accent);
+  transition: color var(--t-fast);
+}
+
+@media (hover: hover) {
+  .close:hover {
+    color: var(--accent-hi);
+  }
 }
 
 .menuList {
@@ -231,11 +245,6 @@
   width: 3rem;
   color: var(--accent);
   opacity: 0.8;
-}
-
-.menuHint {
-  font-size: 0.8125rem;
-  color: var(--ink-3);
 }
 
 @keyframes menuIn {

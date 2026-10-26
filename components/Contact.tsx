@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Resume } from "@/content/types";
+import SocialLinks from "./SocialLinks";
 import styles from "./Contact.module.css";
 
 interface Props {
@@ -41,24 +42,9 @@ export default function Contact({ email, links, scholar, contact }: Props) {
         </a>
       </p>
 
-      <ul className={styles.links}>
-        {links.map((l) => (
-          <li key={l.url}>
-            <a className="link" href={l.url} target="_blank" rel="noopener noreferrer">
-              {l.label}
-            </a>
-          </li>
-        ))}
-        <li>
-          {scholar.url ? (
-            <a className="link" href={scholar.url} target="_blank" rel="noopener noreferrer">
-              {scholar.label}
-            </a>
-          ) : (
-            <span className="pending">{scholar.pending}</span>
-          )}
-        </li>
-      </ul>
+      <div className={styles.links}>
+        <SocialLinks links={links} email={email} scholar={scholar} />
+      </div>
 
       <dl className={styles.now}>
         {now.map((n) => (
