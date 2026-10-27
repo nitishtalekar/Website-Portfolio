@@ -37,22 +37,27 @@ export default function TypedName({ words }: { words: string[] }) {
   }, [total]);
 
   const done = typed >= total;
-  const cursor = <span className={styles.cursor} />;
   let index = 0;
 
   return (
     <>
       {letters.map((word, w) => (
         <span key={w} className={styles.word} aria-hidden="true">
-          {w === 0 && typed === 0 && cursor}
           {word.map((ch, i) => {
             const at = index++;
+            // The cursor lives inside the letter it follows (or precedes, for the first one),
+            // absolutely positioned, so no element ever sits between two letters and breaks kerning.
+            const cursorAfter = !done && typed > 0 && at === typed - 1;
+            const cursorBefore = typed === 0 && at === 0;
             return (
-              <span key={i}>
-                <span className={styles.ch} data-on={at < typed || undefined}>
-                  {ch}
-                </span>
-                {!done && at === typed - 1 && cursor}
+              <span key={i} className={styles.ch} data-on={at < typed || undefined}>
+                {ch}
+                {(cursorAfter || cursorBefore) && (
+                  <span
+                    className={styles.cursor}
+                    data-side={cursorBefore ? "before" : "after"}
+                  />
+                )}
               </span>
             );
           })}

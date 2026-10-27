@@ -202,6 +202,10 @@
   visibility: hidden;
 }
 
+.ch {
+  position: relative;
+}
+
 .ch[data-on],
 .stop[data-on] {
   visibility: visible;
@@ -211,23 +215,25 @@
   color: var(--accent);
 }
 
-/* The cursor takes no width; it is a green block drawn just after the last typed letter. */
+/* The cursor is out of flow, pinned to the edge of the letter it belongs to, so it never affects kerning or layout. */
 .cursor {
-  position: relative;
-  display: inline-block;
-  width: 0;
-  height: 0.8em;
-}
-
-.cursor::after {
-  content: "";
   position: absolute;
-  left: 0.05em;
-  bottom: 0;
+  bottom: 0.2em;
   width: 0.07em;
   height: 0.8em;
+  visibility: visible;
   background: var(--accent);
   animation: blink 1.6s steps(1) infinite;
+}
+
+.cursor[data-side="after"] {
+  left: 100%;
+  margin-left: 0.05em;
+}
+
+.cursor[data-side="before"] {
+  left: 0;
+  margin-left: -0.12em;
 }
 
 @keyframes blink {

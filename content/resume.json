@@ -27,34 +27,14 @@
       "icon": "cup"
     },
     {
-      "id": "work",
-      "label": "Work",
+      "id": "background",
+      "label": "Background",
       "icon": "sword"
     },
     {
       "id": "projects",
       "label": "Projects",
       "icon": "gamepad"
-    },
-    {
-      "id": "research",
-      "label": "Research",
-      "icon": "book"
-    },
-    {
-      "id": "stack",
-      "label": "Stack",
-      "icon": "dice"
-    },
-    {
-      "id": "education",
-      "label": "Education",
-      "icon": "glasses"
-    },
-    {
-      "id": "community",
-      "label": "Community",
-      "icon": "heart"
     },
     {
       "id": "contact",
