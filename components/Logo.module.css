@@ -1,0 +1,77 @@
+.logo {
+  display: block;
+  overflow: visible;
+  color: var(--ink);
+  transition: color var(--t-fast);
+}
+
+.brace {
+  stroke: var(--accent);
+  transition:
+    transform var(--t-med) var(--ease),
+    stroke var(--t-fast);
+}
+
+.letters {
+  fill: currentColor;
+}
+
+.cursor {
+  fill: var(--accent);
+}
+
+/* On load the braces draw in, then the letters wipe in left to right. */
+@media (prefers-reduced-motion: no-preference) {
+  .brace {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 700ms var(--ease) forwards;
+  }
+
+  .letters {
+    clip-path: inset(0 100% 0 0);
+    animation: wipe 600ms var(--ease) 250ms forwards;
+  }
+
+  .cursor {
+    opacity: 0;
+    animation: blink 1.1s steps(1, end) 900ms infinite;
+  }
+}
+
+/* On hover the braces open up around the letters. */
+@media (hover: hover) {
+  :global(a):hover > .logo {
+    color: var(--accent);
+  }
+
+  :global(a):hover > .logo .brace:first-of-type {
+    transform: translateX(-2px);
+  }
+
+  :global(a):hover > .logo .brace:nth-of-type(2) {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes wipe {
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

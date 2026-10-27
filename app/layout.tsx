@@ -27,7 +27,11 @@ export const metadata: Metadata = {
   description:
     "Lead Software Engineer at Jabali AI building AI-generated games. Work, projects, research and writing by Nitish Talekar.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "32x32" },
+    ],
+    apple: "/logo.png",
   },
   openGraph: {
     title: "Nitish Talekar",

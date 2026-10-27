@@ -17,18 +17,9 @@
 }
 
 .monogram {
-  font-weight: 800;
-  font-stretch: 118%;
-  font-size: 1rem;
-  letter-spacing: 0.02em;
-  color: var(--ink);
-  transition: color var(--t-fast);
-}
-
-@media (hover: hover) {
-  .monogram:hover {
-    color: var(--accent);
-  }
+  display: grid;
+  place-items: center;
+  min-height: 2.75rem;
 }
 
 .menuButton {

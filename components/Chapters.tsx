@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Icon from "./Icon";
+import Logo from "./Logo";
 import styles from "./Chapters.module.css";
 
 interface Chapter {
@@ -68,7 +69,7 @@ export default function Chapters({ chapters }: { chapters: readonly Chapter[] })
     <>
       <header className={styles.bar}>
         <a href="#intro" className={styles.monogram} aria-label="Back to the start">
-          NT
+          <Logo />
         </a>
         <button type="button" className={styles.menuButton} onClick={() => menuRef.current?.showModal()}>
           <span className={styles.here}>
