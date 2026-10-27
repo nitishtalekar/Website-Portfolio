@@ -1,8 +1,16 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useSyncExternalStore } from "react";
 import Pager from "./Pager";
 import styles from "./Paged.module.css";
+
+const MOBILE_QUERY = "(max-width: 40em)";
+
+function subscribeMobile(onChange: () => void) {
+  const mq = window.matchMedia(MOBILE_QUERY);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
 
 interface PagedValue {
   page: number;
@@ -19,9 +27,22 @@ export const usePaged = () => useContext(PagedContext);
  * Shares one page number between a section's header (where the pager lives)
  * and its list (which shows that page). With no `pageSize`, everything is one page.
  */
-export function Paged({ count, pageSize, children }: { count: number; pageSize?: number; children: React.ReactNode }) {
+export function Paged({
+  count,
+  pageSize,
+  mobilePageSize,
+  children,
+}: {
+  count: number;
+  pageSize?: number;
+  /** Entries per page at phone width; falls back to `pageSize`. */
+  mobilePageSize?: number;
+  children: React.ReactNode;
+}) {
   const [page, setPage] = useState(0);
-  const size = pageSize && pageSize > 0 ? pageSize : Math.max(count, 1);
+  const mobile = useSyncExternalStore(subscribeMobile, () => window.matchMedia(MOBILE_QUERY).matches, () => false);
+  const perPage = mobile && mobilePageSize ? mobilePageSize : pageSize;
+  const size = perPage && perPage > 0 ? perPage : Math.max(count, 1);
   const pages = Math.max(1, Math.ceil(count / size));
   return <PagedContext.Provider value={{ page: Math.min(page, pages - 1), pages, size, setPage }}>{children}</PagedContext.Provider>;
 }

@@ -79,7 +79,7 @@ export default async function Home() {
                 icon: tabIcons.research,
                 panel: (
                   <>
-                    <Paged count={research.items.length} pageSize={research.pageSize}>
+                    <Paged count={research.items.length} pageSize={research.pageSize} mobilePageSize={research.mobilePageSize}>
                       <SectionHeader id="research" title={research.title} sub={research.sub} icon={tabIcons.research} aside={<PagerSlot />} />
                       <Shelf items={research.items} />
                     </Paged>

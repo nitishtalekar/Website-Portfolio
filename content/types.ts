@@ -54,6 +54,8 @@ export interface RowSection extends Section {
   items: Row[];
   /** Entries per page. Omit to show everything on one page. */
   pageSize?: number;
+  /** Entries per page on phones. Defaults to `pageSize`. */
+  mobilePageSize?: number;
 }
 
 export interface Resume {

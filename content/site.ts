@@ -19,7 +19,7 @@ export const site = {
   sections: {
     work: { title: "Work", sub: ["The quest log.", "The order history."], pageSize: 3 },
     projects: { title: "Projects", sub: ["Built for fun, shipped anyway.", "Brewed for fun, served anyway."], pageSize: 4 },
-    research: { title: "Research", sub: ["Questions I got to chase, in print.", "Questions I got to steep, in print."], pageSize: 4 },
+    research: { title: "Research", sub: ["Questions I got to chase, in print.", "Questions I got to steep, in print."], pageSize: 4, mobilePageSize: 2 },
     stack: { title: "Stack", sub: ["My loadout.", "The house blend."] },
     education: { title: "Education", sub: ["Where I levelled up.", "Where I got my roast level up."] },
     community: { title: "Community", sub: ["Co-op mode.", "Best shared over a pot."] },
