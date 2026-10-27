@@ -10,7 +10,7 @@
 .head {
   width: 100%;
   display: grid;
-  grid-template-columns: var(--when-w) minmax(0, 1.7fr) minmax(0, 1fr) 1rem;
+  grid-template-columns: var(--when-w) auto minmax(0, 1fr) 1rem;
   align-items: baseline;
   column-gap: 1.5rem;
   padding-block: clamp(0.75rem, 2.2vh, 1.25rem);
@@ -41,7 +41,7 @@ button.head {
 .subtitle {
   font-size: 0.9375rem;
   color: var(--ink-3);
-  text-align: right;
+  text-align: left;
 }
 
 @media (hover: hover) {

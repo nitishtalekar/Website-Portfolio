@@ -40,8 +40,8 @@ export default function Rows({ items }: { items: Row[] }) {
             const head = (
               <>
                 <span className={styles.when}>{r.when}</span>
-                <span className={styles.title}>{r.title}</span>
-                <span className={styles.subtitle}>{r.subtitle}</span>
+                <span className={styles.title}>{r.subtitle}</span>
+                <span className={styles.subtitle}>{r.title}</span>
                 {body ? <PlusMark open={isOpen} /> : <span />}
               </>
             );

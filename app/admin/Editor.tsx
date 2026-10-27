@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState, useTransition } from "react";
 import type { ResumeData } from "@/content/types";
+import Icon from "@/components/Icon";
 import { blank, sections, type Field } from "@/lib/resume-schema";
 import { logout, save } from "./actions";
 import styles from "./admin.module.css";
@@ -280,6 +281,37 @@ function FieldInput({ field, value, onChange }: { field: Field; value: unknown; 
           ) : (
             <input id={id} value={text(value)} onChange={(e) => onChange(e.target.value)} />
           )}
+          {hint}
+        </div>
+      );
+
+    case "icon":
+      return (
+        <div className={styles.field} role="radiogroup" aria-label={field.label}>
+          <span className={styles.label}>
+            {field.label}
+            {field.optional && <em> optional</em>}
+          </span>
+          <div className={styles.iconPicks}>
+            <button type="button" role="radio" aria-checked={!text(value)} className={styles.iconPick} data-on={!text(value) || undefined} onClick={() => onChange("")}>
+              Automatic
+            </button>
+            {field.options.map((name) => (
+              <button
+                key={name}
+                type="button"
+                role="radio"
+                aria-checked={value === name}
+                aria-label={name}
+                title={name}
+                className={styles.iconPick}
+                data-on={value === name || undefined}
+                onClick={() => onChange(name)}
+              >
+                <Icon name={name} size={22} />
+              </button>
+            ))}
+          </div>
           {hint}
         </div>
       );

@@ -35,6 +35,11 @@ export interface Row {
   details?: { label: string; value: string }[];
   tags?: string[];
   links?: Link[];
+  /** Projects: repository and live-deployment URLs, shown as icons when present. */
+  github?: string;
+  website?: string;
+  /** Projects: card art, a name from components/Icon.tsx. */
+  icon?: string;
   /** Shown instead of links while `links` is empty. */
   pending?: string;
 }
@@ -89,6 +94,10 @@ export interface Entry {
   details?: { label: string; value: string }[];
   tags?: string[];
   links?: { label: string; url: string }[];
+  /** Projects only. */
+  icon?: string;
+  github?: string;
+  website?: string;
 }
 
 /** The pure resume document. Every list is in display order (newest first by convention). */

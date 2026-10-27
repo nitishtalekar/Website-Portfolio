@@ -27,8 +27,42 @@
   transform: none;
 }
 
+.headWrap {
+  position: relative;
+}
+
+/* Sits over the bottom-right of the head; the links can't live inside the button. */
+.actions {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 0.625rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.action {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--line-2);
+  border-radius: 50%;
+  color: var(--ink-3);
+  transition:
+    color var(--t-fast),
+    border-color var(--t-fast);
+}
+
+@media (hover: hover) {
+  .action:hover {
+    color: var(--accent-hi);
+    border-color: var(--accent);
+  }
+}
+
 .head {
   width: 100%;
+  text-align: left;
   min-height: clamp(5.5rem, 14vh, 7.5rem);
   display: flex;
   flex-direction: column;
@@ -48,9 +82,35 @@ button.head {
   gap: 1rem;
 }
 
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.glyph {
+  display: grid;
+  flex: none;
+  color: var(--accent);
+}
+
 .category {
+  align-self: flex-end;
   font-size: 0.875rem;
   color: var(--ink-3);
+  text-align: right;
+}
+
+/* Leave room on the same row for the circled link icons on the left. */
+.head[data-links="true"] {
+  padding-bottom: 0.625rem;
+}
+
+.head[data-links="true"] .category {
+  display: flex;
+  align-items: center;
+  min-height: 2rem;
 }
 
 .title {

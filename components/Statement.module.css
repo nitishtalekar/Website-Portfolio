@@ -34,7 +34,7 @@
 .statement {
   max-width: 40rem;
   font-family: var(--font-prose);
-  font-size: clamp(1.5rem, min(2.4vw + 0.7rem, 5vh), 2.5rem);
+  font-size: clamp(1.125rem, min(1.4vw + 0.6rem, 3.4vh), 1.625rem);
   line-height: 1.25;
   letter-spacing: -0.015em;
   text-wrap: pretty;

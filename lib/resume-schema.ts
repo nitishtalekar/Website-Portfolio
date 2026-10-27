@@ -6,9 +6,13 @@
  */
 export type Field =
   | { kind: "text"; key: string; label: string; optional?: boolean; hint?: string; long?: boolean }
+  | { kind: "icon"; key: string; label: string; options: readonly string[]; optional?: boolean; hint?: string }
   | { kind: "strings"; key: string; label: string; optional?: boolean; hint?: string; long?: boolean }
   | { kind: "object"; key: string; label: string; fields: Field[]; optional?: boolean }
   | { kind: "list"; key: string; label: string; fields: Field[]; optional?: boolean; itemTitle: string; itemNoun: string };
+
+/** Card art a project can wear, by name from components/Icon.tsx. Order here is the order shown in the editor and the automatic rotation. */
+export const PROJECT_ICONS = ["togo", "joystick", "closedbook", "graph"] as const;
 
 const link: Field[] = [
   { kind: "text", key: "label", label: "Label" },
@@ -59,14 +63,22 @@ const entry: Field[] = [
   links(),
 ];
 
-const entries = (key: string, label: string, itemNoun: string): Field => ({
+const entries = (key: string, label: string, itemNoun: string, extra?: Field[]): Field => ({
   kind: "list",
   key,
   label,
   itemNoun,
   itemTitle: "title",
-  fields: entry,
+  // Projects swap the free-form links list for the two fixed ones.
+  fields: extra ? [...entry.filter((f) => f.key !== "links"), ...extra] : entry,
 });
+
+/** Projects can point at their repository and a live deployment; each icon only shows when its link is set. */
+const projectLinks: Field[] = [
+  { kind: "icon", key: "icon", label: "Card icon", options: PROJECT_ICONS, optional: true, hint: "Leave on Automatic to rotate through them." },
+  { kind: "text", key: "github", label: "GitHub link", optional: true, hint: "Repository URL. Leave empty to hide the icon." },
+  { kind: "text", key: "website", label: "Website link", optional: true, hint: "Where it is live. Leave empty to hide the icon." },
+];
 
 /** One field per top-level key of ResumeData, in the order the editor shows them. */
 export const sections: Field[] = [
@@ -95,7 +107,7 @@ export const sections: Field[] = [
     ],
   },
   entries("work", "Work", "job"),
-  entries("projects", "Projects", "project"),
+  entries("projects", "Projects", "project", projectLinks),
   entries("research", "Research", "paper"),
   entries("education", "Education", "degree"),
   {
@@ -146,6 +158,10 @@ function cleanFields(input: unknown, fields: Field[], path: string): Result<Reco
       case "text":
         if (typeof v !== "string") return { ok: false, error: `${where} must be text` };
         out[f.key] = v.trim();
+        break;
+      case "icon":
+        if (typeof v !== "string" || !f.options.includes(v)) return { ok: false, error: `${where} must be one of ${f.options.join(", ")}` };
+        out[f.key] = v;
         break;
       case "strings":
         if (!Array.isArray(v) || v.some((s) => typeof s !== "string")) return { ok: false, error: `${where} must be a list of text` };

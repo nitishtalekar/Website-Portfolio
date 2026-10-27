@@ -41,13 +41,23 @@
   }
 }
 
+/* Mobile: plain comma-style text instead of pills. */
 @media (max-width: 48em) {
+  .slots {
+    gap: 0.15rem 0.9rem;
+  }
+
   .slot {
-    padding: 0.3rem 0.7rem;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
     font-size: 0.9375rem;
+    font-weight: 400;
   }
 
   .label {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
+    padding-bottom: 0.35rem;
   }
 }

@@ -581,3 +581,31 @@
     transition: none;
   }
 }
+
+/* ---------- Icon picker ---------- */
+
+.iconPicks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.iconPick {
+  min-height: 2.5rem;
+  min-width: 2.5rem;
+  padding-inline: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 0.375rem;
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.iconPick[data-on] {
+  color: var(--ink);
+  border-color: var(--accent);
+  background: var(--accent-lo);
+}

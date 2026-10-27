@@ -21,6 +21,15 @@ function rows(entries: Entry[], pending?: string): Row[] {
   }));
 }
 
+/** Projects show their links as icons on the card, never as text. Older entries kept them in a free-form list; fold those into the two fixed slots. */
+function projectRows(entries: Entry[]): Row[] {
+  return rows(entries).map(({ links, ...r }) => {
+    const github = r.github || links?.find((l) => iconFor(l.url) === "github")?.url;
+    const website = r.website || links?.find((l) => iconFor(l.url) !== "github")?.url;
+    return { ...r, ...(github ? { github } : {}), ...(website ? { website } : {}) };
+  });
+}
+
 /** Merge the pure resume document with the website's own structure (content/site.ts) into what the components render. */
 export function compose(data: ResumeData): Resume {
   const { sections: s, contact } = site;
@@ -35,7 +44,7 @@ export function compose(data: ResumeData): Resume {
     },
     chapters: [...site.chapters],
     work: { ...s.work, items: rows(data.work) },
-    projects: { ...s.projects, items: rows(data.projects) },
+    projects: { ...s.projects, items: projectRows(data.projects) },
     research: {
       ...s.research,
       items: rows(data.research, site.paperPending),
