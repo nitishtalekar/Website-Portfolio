@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Icon from "./Icon";
+import { TAB_MOTIF_EVENT } from "./ParticleField";
 import styles from "./Tabs.module.css";
 
 interface Tab {
@@ -19,6 +20,13 @@ interface Tab {
 export default function Tabs({ tabs, label }: { tabs: Tab[]; label: string }) {
   const [active, setActive] = useState(0);
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // Tell the particle backdrop which icon to form while this chapter is on screen.
+  useEffect(() => {
+    const icon = tabs[active].icon;
+    document.documentElement.dataset.tabMotif = icon;
+    window.dispatchEvent(new CustomEvent(TAB_MOTIF_EVENT, { detail: icon }));
+  }, [tabs, active]);
 
   const select = (i: number) => {
     const next = (i + tabs.length) % tabs.length;

@@ -4,6 +4,7 @@ import CheatCode from "@/components/CheatCode";
 import Contact from "@/components/Contact";
 import Hero from "@/components/Hero";
 import Inventory from "@/components/Inventory";
+import ParticleField from "@/components/ParticleField";
 import { Paged, PagerSlot } from "@/components/Paged";
 import Rows from "@/components/Rows";
 import Section from "@/components/Section";
@@ -29,6 +30,7 @@ export default async function Home() {
 
   return (
     <>
+      <ParticleField chapters={chapters} />
       <Chapters chapters={chapters} />
       <CheatCode />
       <main>

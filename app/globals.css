@@ -68,6 +68,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Content sits above the particle backdrop (components/ParticleField). */
+main {
+  position: relative;
+  z-index: 1;
+}
+
 h1,
 h2,
 h3 {

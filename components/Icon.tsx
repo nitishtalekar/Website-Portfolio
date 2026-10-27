@@ -2,7 +2,7 @@
  * The site's small symbol set: coffee, games, books. One stroke weight, one
  * grid, so they sit together. A chapter picks one by name in resume.json.
  */
-const PATHS: Record<string, string> = {
+export const ICON_PATHS: Record<string, string> = {
   cup: "M5 9h11v5a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z M16 10h1.5a2.5 2.5 0 0 1 0 5H16 M8.5 3.5c-.8 1 .8 1.5 0 2.5 M12.5 3.5c-.8 1 .8 1.5 0 2.5",
   sword: "M14.5 17.5 3 6V3h3l11.5 11.5 M13 19l6-6 M16 16l4 4 M19 21l2-2",
   gamepad:
@@ -21,7 +21,7 @@ const PATHS: Record<string, string> = {
 };
 
 export default function Icon({ name, size = 20 }: { name: string; size?: number }) {
-  const d = PATHS[name];
+  const d = ICON_PATHS[name];
   if (!d) return null;
   return (
     <svg
