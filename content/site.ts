@@ -13,7 +13,7 @@ export const site = {
   ],
 
   /** Shown under the hero tagline. */
-  aside: "Plays games. Reads books. Runs on coffee.",
+  aside: "Fueled by coffee, good books, and one more level.",
 
   /** Headings per section. `sub` lists the wordings; the page shows one at random per load. `pageSize` paginates once a list has more entries than that. */
   sections: {
