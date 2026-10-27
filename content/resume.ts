@@ -1,5 +1,5 @@
 import data from "./resume.json";
-import type { Resume } from "./types";
+import type { ResumeData } from "./types";
 
-/** The single source of truth. Edit resume.json; this only gives it a type. */
-export const resume: Resume = data;
+/** The bundled copy of the resume: the seed for Backbone and the fallback if it is unreachable. Edit resume.json. */
+export const resumeData: ResumeData = data;

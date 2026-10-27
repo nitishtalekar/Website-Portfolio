@@ -1,8 +1,12 @@
 /**
- * Shape of content/resume.json. Everything is stored exactly as it is shown:
- * dates are display strings and lists are in display order. Add an entry by writing it where you want it to appear; a
- * section with `pageSize` paginates once it has more entries than that.
- * Nothing is sorted, formatted or counted in code.
+ * Two shapes live here.
+ *
+ * `ResumeData` is what content/resume.json (and the Backbone copy edited at /admin) holds:
+ * purely the facts of the resume, in display order, with dates as display strings. No
+ * section titles, icons, nav labels, page sizes or other website copy.
+ *
+ * `Resume` is what the components render: the data above merged with content/site.ts by
+ * content/compose.ts, which is where all website structure and logic lives.
  */
 
 export interface Highlight {
@@ -71,4 +75,38 @@ export interface Resume {
     mail: string;
     now: { label: string; text: string }[];
   };
+}
+
+/** One entry in a resume list. Only `title` is required. */
+export interface Entry {
+  title: string;
+  subtitle?: string;
+  /** Date or range, as it should read. */
+  when?: string;
+  summary?: string;
+  points?: string[];
+  highlights?: Highlight[];
+  details?: { label: string; value: string }[];
+  tags?: string[];
+  links?: { label: string; url: string }[];
+}
+
+/** The pure resume document. Every list is in display order (newest first by convention). */
+export interface ResumeData {
+  profile: {
+    firstName: string;
+    lastName: string;
+    role: string;
+    org: string;
+    tagline: string;
+    email: string;
+    /** Profiles such as GitHub, LinkedIn or Google Scholar. The site picks the icon from the URL. */
+    links: { label: string; url: string }[];
+  };
+  work: Entry[];
+  education: Entry[];
+  stack: { label: string; items: string[] }[];
+  research: Entry[];
+  community: Entry[];
+  projects: Entry[];
 }

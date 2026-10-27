@@ -2,11 +2,11 @@ import SocialLinks from "./SocialLinks";
 import PortraitCard from "./PortraitCard";
 import Section from "./Section";
 import TypedName from "./TypedName";
-import { resume } from "@/content/resume";
+import type { Resume } from "@/content/types";
 import styles from "./Hero.module.css";
 
 /** Portrait on the left in a floating hairline frame, text on the right; the name types itself out. */
-export default function Hero() {
+export default function Hero({ resume }: { resume: Resume }) {
   const p = resume.profile;
   return (
     <Section id="intro" wide>

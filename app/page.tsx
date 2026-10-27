@@ -12,16 +12,18 @@ import Shelf from "@/components/Shelf";
 import Statement from "@/components/Statement";
 import Tabs from "@/components/Tabs";
 import Timeline from "@/components/Timeline";
-import { resume } from "@/content/resume";
+import { getPublicResume } from "@/lib/backbone";
 
 /**
- * Everything rendered here comes straight from content/resume.json.
+ * Everything rendered here comes from the resume stored in Backbone (edited at /admin),
+ * falling back to content/resume.json if the backend is unreachable.
  * Each chapter has its own form (list, cards, book stack, inventory,
  * path, statement), all drawn from the same tokens.
  */
 const tabIcons = { work: "sword", education: "glasses", stack: "dice", research: "book" } as const;
 
-export default function Home() {
+export default async function Home() {
+  const resume = await getPublicResume();
   const { work, projects, research, stack, education, community, contact, chapters } = resume;
   const icon = (id: string) => chapters.find((c) => c.id === id)?.icon;
 
@@ -30,7 +32,7 @@ export default function Home() {
       <Chapters chapters={chapters} />
       <CheatCode />
       <main>
-        <Hero />
+        <Hero resume={resume} />
 
         <Section id="background">
           <Tabs

@@ -1,0 +1,184 @@
+/**
+ * Field-level description of ResumeData (content/types.ts). The /admin editor
+ * renders its form from this, and the save action uses the same description to
+ * validate and tidy whatever the browser sends, so the two can't drift apart.
+ * Only resume facts appear here; site copy lives in content/site.ts.
+ */
+export type Field =
+  | { kind: "text"; key: string; label: string; optional?: boolean; hint?: string; long?: boolean }
+  | { kind: "strings"; key: string; label: string; optional?: boolean; hint?: string; long?: boolean }
+  | { kind: "object"; key: string; label: string; fields: Field[]; optional?: boolean }
+  | { kind: "list"; key: string; label: string; fields: Field[]; optional?: boolean; itemTitle: string; itemNoun: string };
+
+const link: Field[] = [
+  { kind: "text", key: "label", label: "Label" },
+  { kind: "text", key: "url", label: "URL" },
+];
+
+const links = (hint?: string): Field => ({
+  kind: "list",
+  key: "links",
+  label: "Links",
+  optional: true,
+  itemNoun: "link",
+  itemTitle: "label",
+  fields: link.map((f) => (f.key === "url" && hint ? { ...f, hint } : f)),
+});
+
+const entry: Field[] = [
+  { kind: "text", key: "title", label: "Title" },
+  { kind: "text", key: "subtitle", label: "Subtitle", optional: true, hint: "Role, degree, venue, category…" },
+  { kind: "text", key: "when", label: "When", optional: true, hint: "Shown as written, e.g. Jan 2024 – Present" },
+  { kind: "text", key: "summary", label: "Summary", optional: true, long: true },
+  { kind: "strings", key: "points", label: "Points", optional: true, long: true },
+  {
+    kind: "list",
+    key: "highlights",
+    label: "Highlights",
+    optional: true,
+    itemNoun: "highlight",
+    itemTitle: "label",
+    fields: [
+      { kind: "text", key: "value", label: "Value", hint: "e.g. 200+" },
+      { kind: "text", key: "label", label: "Label", hint: "e.g. students" },
+    ],
+  },
+  {
+    kind: "list",
+    key: "details",
+    label: "Details",
+    optional: true,
+    itemNoun: "detail",
+    itemTitle: "label",
+    fields: [
+      { kind: "text", key: "label", label: "Label", hint: "e.g. GPA" },
+      { kind: "text", key: "value", label: "Value" },
+    ],
+  },
+  { kind: "strings", key: "tags", label: "Tags", optional: true },
+  links(),
+];
+
+const entries = (key: string, label: string, itemNoun: string): Field => ({
+  kind: "list",
+  key,
+  label,
+  itemNoun,
+  itemTitle: "title",
+  fields: entry,
+});
+
+/** One field per top-level key of ResumeData, in the order the editor shows them. */
+export const sections: Field[] = [
+  {
+    kind: "object",
+    key: "profile",
+    label: "Profile",
+    fields: [
+      { kind: "text", key: "firstName", label: "First name" },
+      { kind: "text", key: "lastName", label: "Last name" },
+      { kind: "text", key: "role", label: "Role" },
+      { kind: "text", key: "org", label: "Organisation" },
+      { kind: "text", key: "tagline", label: "Tagline" },
+      { kind: "text", key: "email", label: "Email" },
+      {
+        kind: "list",
+        key: "links",
+        label: "Profile links",
+        itemNoun: "link",
+        itemTitle: "label",
+        fields: [
+          { kind: "text", key: "label", label: "Label", hint: "e.g. GitHub, LinkedIn, Google Scholar" },
+          { kind: "text", key: "url", label: "URL", hint: "The site picks the icon from the address" },
+        ],
+      },
+    ],
+  },
+  entries("work", "Work", "job"),
+  entries("projects", "Projects", "project"),
+  entries("research", "Research", "paper"),
+  entries("education", "Education", "degree"),
+  {
+    kind: "list",
+    key: "stack",
+    label: "Stack",
+    itemNoun: "group",
+    itemTitle: "label",
+    fields: [
+      { kind: "text", key: "label", label: "Group name" },
+      { kind: "strings", key: "items", label: "Skills" },
+    ],
+  },
+  entries("community", "Community", "entry"),
+];
+
+/** A blank value for a list item, used when adding one. */
+export function blank(fields: Field[]): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const f of fields) {
+    if (f.optional) continue;
+    out[f.key] = f.kind === "strings" || f.kind === "list" ? [] : f.kind === "object" ? blank(f.fields) : "";
+  }
+  return out;
+}
+
+type Result<T> = { ok: true; value: T } | { ok: false; error: string };
+
+function cleanFields(input: unknown, fields: Field[], path: string): Result<Record<string, unknown>> {
+  if (typeof input !== "object" || input === null || Array.isArray(input)) return { ok: false, error: `${path} must be an object` };
+  const src = input as Record<string, unknown>;
+  const out: Record<string, unknown> = {};
+
+  for (const f of fields) {
+    const where = `${path}.${f.key}`;
+    const v = src[f.key];
+    const empty = v === undefined || v === null || v === "" || (Array.isArray(v) && v.length === 0);
+
+    if (empty) {
+      if (f.optional) continue;
+      if (f.kind === "strings" || f.kind === "list") out[f.key] = [];
+      else if (f.kind === "text") out[f.key] = "";
+      else return { ok: false, error: `${where} is required` };
+      continue;
+    }
+
+    switch (f.kind) {
+      case "text":
+        if (typeof v !== "string") return { ok: false, error: `${where} must be text` };
+        out[f.key] = v.trim();
+        break;
+      case "strings":
+        if (!Array.isArray(v) || v.some((s) => typeof s !== "string")) return { ok: false, error: `${where} must be a list of text` };
+        out[f.key] = (v as string[]).map((s) => s.trim()).filter(Boolean);
+        break;
+      case "object": {
+        const r = cleanFields(v, f.fields, where);
+        if (!r.ok) return r;
+        out[f.key] = r.value;
+        break;
+      }
+      case "list": {
+        if (!Array.isArray(v)) return { ok: false, error: `${where} must be a list` };
+        const items: Record<string, unknown>[] = [];
+        for (let i = 0; i < v.length; i++) {
+          const r = cleanFields(v[i], f.fields, `${where}[${i}]`);
+          if (!r.ok) return r;
+          if (!r.value[f.itemTitle]) return { ok: false, error: `${f.label}: every ${f.itemNoun} needs a ${f.itemTitle} (#${i + 1})` };
+          items.push(r.value);
+        }
+        out[f.key] = items;
+        break;
+      }
+    }
+  }
+  return { ok: true, value: out };
+}
+
+/**
+ * Validate and tidy a resume submitted by the editor: unknown keys are dropped,
+ * text is trimmed, empty optional fields are omitted, and every list entry needs
+ * its title. Returns the first problem it finds, with a path so the admin can locate it.
+ */
+export function cleanResume(input: unknown): Result<Record<string, unknown>> {
+  return cleanFields(input, sections, "resume");
+}
