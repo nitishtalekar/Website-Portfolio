@@ -5,7 +5,7 @@
  * Only resume facts appear here; site copy lives in content/site.ts.
  */
 export type Field =
-  | { kind: "text"; key: string; label: string; optional?: boolean; hint?: string; long?: boolean }
+  | { kind: "text"; key: string; label: string; optional?: boolean; required?: boolean; hint?: string; long?: boolean }
   | { kind: "icon"; key: string; label: string; options: readonly string[]; optional?: boolean; hint?: string }
   | { kind: "strings"; key: string; label: string; optional?: boolean; hint?: string; long?: boolean }
   | { kind: "object"; key: string; label: string; fields: Field[]; optional?: boolean }
@@ -14,63 +14,44 @@ export type Field =
 /** Card art a project can wear, by name from components/Icon.tsx. Order here is the order shown in the editor and the automatic rotation. */
 export const PROJECT_ICONS = ["togo", "joystick", "closedbook", "graph"] as const;
 
-const link: Field[] = [
-  { kind: "text", key: "label", label: "Label" },
-  { kind: "text", key: "url", label: "URL" },
-];
-
-const links = (hint?: string): Field => ({
+const title: Field = { kind: "text", key: "title", label: "Title" };
+const subtitle: Field = { kind: "text", key: "subtitle", label: "Subtitle", optional: true, hint: "Role, degree, venue, category…" };
+const when: Field = { kind: "text", key: "when", label: "When", optional: true, hint: "Shown as written, e.g. Jan 2024 – Present" };
+const summary: Field = { kind: "text", key: "summary", label: "Summary", optional: true, long: true };
+const points: Field = { kind: "strings", key: "points", label: "Points", optional: true, long: true };
+const tags: Field = { kind: "strings", key: "tags", label: "Tags", optional: true };
+const highlights: Field = {
   kind: "list",
-  key: "links",
-  label: "Links",
+  key: "highlights",
+  label: "Highlights",
   optional: true,
-  itemNoun: "link",
+  itemNoun: "highlight",
   itemTitle: "label",
-  fields: link.map((f) => (f.key === "url" && hint ? { ...f, hint } : f)),
-});
+  fields: [
+    { kind: "text", key: "value", label: "Value", hint: "e.g. 200+" },
+    { kind: "text", key: "label", label: "Label", hint: "e.g. students" },
+  ],
+};
+const details: Field = {
+  kind: "list",
+  key: "details",
+  label: "Details",
+  optional: true,
+  itemNoun: "detail",
+  itemTitle: "label",
+  fields: [
+    { kind: "text", key: "label", label: "Label", hint: "e.g. GPA" },
+    { kind: "text", key: "value", label: "Value" },
+  ],
+};
 
-const entry: Field[] = [
-  { kind: "text", key: "title", label: "Title" },
-  { kind: "text", key: "subtitle", label: "Subtitle", optional: true, hint: "Role, degree, venue, category…" },
-  { kind: "text", key: "when", label: "When", optional: true, hint: "Shown as written, e.g. Jan 2024 – Present" },
-  { kind: "text", key: "summary", label: "Summary", optional: true, long: true },
-  { kind: "strings", key: "points", label: "Points", optional: true, long: true },
-  {
-    kind: "list",
-    key: "highlights",
-    label: "Highlights",
-    optional: true,
-    itemNoun: "highlight",
-    itemTitle: "label",
-    fields: [
-      { kind: "text", key: "value", label: "Value", hint: "e.g. 200+" },
-      { kind: "text", key: "label", label: "Label", hint: "e.g. students" },
-    ],
-  },
-  {
-    kind: "list",
-    key: "details",
-    label: "Details",
-    optional: true,
-    itemNoun: "detail",
-    itemTitle: "label",
-    fields: [
-      { kind: "text", key: "label", label: "Label", hint: "e.g. GPA" },
-      { kind: "text", key: "value", label: "Value" },
-    ],
-  },
-  { kind: "strings", key: "tags", label: "Tags", optional: true },
-  links(),
-];
-
-const entries = (key: string, label: string, itemNoun: string, extra?: Field[]): Field => ({
+const entries = (key: string, label: string, itemNoun: string, fields: Field[]): Field => ({
   kind: "list",
   key,
   label,
   itemNoun,
   itemTitle: "title",
-  // Projects swap the free-form links list for the two fixed ones.
-  fields: extra ? [...entry.filter((f) => f.key !== "links"), ...extra] : entry,
+  fields,
 });
 
 /** Projects can point at their repository and a live deployment; each icon only shows when its link is set. */
@@ -106,10 +87,15 @@ export const sections: Field[] = [
       },
     ],
   },
-  entries("work", "Work", "job"),
-  entries("projects", "Projects", "project", projectLinks),
-  entries("research", "Research", "paper"),
-  entries("education", "Education", "degree"),
+  entries("work", "Work", "job", [title, subtitle, when, summary, points, highlights, tags]),
+  entries("projects", "Projects", "project", [title, subtitle, when, summary, highlights, details, tags, ...projectLinks]),
+  entries("research", "Research", "paper", [
+    title,
+    subtitle,
+    when,
+    { kind: "text", key: "url", label: "Paper link", optional: true, hint: "One link to the paper itself. Leave empty if it is not out yet." },
+  ]),
+  entries("education", "Education", "degree", [title, subtitle, when, details]),
   {
     kind: "list",
     key: "stack",
@@ -121,7 +107,18 @@ export const sections: Field[] = [
       { kind: "strings", key: "items", label: "Skills" },
     ],
   },
-  entries("community", "Community", "entry"),
+  entries("community", "Community", "entry", [title, subtitle, when, summary, details]),
+  {
+    kind: "list",
+    key: "now",
+    label: "Contact",
+    itemNoun: "line",
+    itemTitle: "label",
+    fields: [
+      { kind: "text", key: "label", label: "Label", hint: "e.g. Playing, Reading, Drinking" },
+      { kind: "text", key: "text", label: "Answer" },
+    ],
+  },
 ];
 
 /** A blank value for a list item, used when adding one. */
@@ -149,6 +146,7 @@ function cleanFields(input: unknown, fields: Field[], path: string): Result<Reco
     if (empty) {
       if (f.optional) continue;
       if (f.kind === "strings" || f.kind === "list") out[f.key] = [];
+      else if (f.kind === "text" && f.required) return { ok: false, error: `${where} is required` };
       else if (f.kind === "text") out[f.key] = "";
       else return { ok: false, error: `${where} is required` };
       continue;

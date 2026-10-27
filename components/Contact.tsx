@@ -15,7 +15,7 @@ interface Props {
 export default function Contact({ email, links, scholar, contact }: Props) {
   const [copied, setCopied] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const { hint, copied: copiedMsg, mail, now } = contact;
+  const { copied: copiedMsg, now } = contact;
 
   const copy = async () => {
     try {
@@ -36,10 +36,7 @@ export default function Contact({ email, links, scholar, contact }: Props) {
         {email}
       </button>
       <p id="copy-status" className={styles.status} role="status">
-        {copied ? copiedMsg : hint}{" "}
-        <a className="link" href={`mailto:${email}`}>
-          {mail}
-        </a>
+        {copied ? copiedMsg : null}
       </p>
 
       <div className={styles.links}>

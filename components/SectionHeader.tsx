@@ -1,10 +1,11 @@
 import Icon from "./Icon";
+import RandomLine from "./RandomLine";
 import styles from "./SectionHeader.module.css";
 
 interface Props {
   id: string;
   title: string;
-  sub: string;
+  sub: string | readonly string[];
   /** Name of a symbol from Icon.tsx, set beside the title. */
   icon?: string;
   /** Optional control pinned to the right of the title row (the pager). */
@@ -29,7 +30,7 @@ export default function SectionHeader({ id, title, sub, icon, aside }: Props) {
         </h2>
         {aside ? <div className={styles.aside}>{aside}</div> : null}
       </div>
-      <p className={styles.sub}>{sub}</p>
+      <p className={styles.sub}><RandomLine options={sub} /></p>
     </header>
   );
 }

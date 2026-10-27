@@ -22,19 +22,17 @@ let added = 0;
 /** Client-only, called from event handlers. Initial keys are positional (see withKeys) so server and client markup match. */
 const newKey = () => `n${++added}`;
 
-/** The stack has no dates, so new groups go last; entry lists are newest first, so new ones go on top. */
-const addsToEnd = (key: string) => key === "stack";
+/** The stack and contact lines have no dates, so new ones go last; entry lists are newest first, so new ones go on top. */
+const addsToEnd = (key: string) => key === "stack" || key === "now";
 
-/** Tag every top-level entry with a positional key, and open the first entry of each list so there is something to edit straight away. */
+/** Tag every top-level entry with a positional key. Entries start collapsed. */
 function load(initial: ResumeData) {
   const data: Data = { ...(initial as unknown as Data) };
-  const open = new Set<string>();
   for (const s of sections) {
     if (s.kind !== "list") continue;
     data[s.key] = list(data[s.key]).map((item, i) => ({ ...item, [KEY]: `${s.key}-${i}` }));
-    if (list(data[s.key]).length) open.add(`${s.key}-0`);
   }
-  return { data, open, saved: JSON.stringify(data) };
+  return { data, saved: JSON.stringify(data) };
 }
 
 export default function Editor({ initial, username }: { initial: ResumeData; username: string }) {
@@ -42,7 +40,7 @@ export default function Editor({ initial, username }: { initial: ResumeData; use
   const [data, setData] = useState<Data>(start.data);
   const [saved, setSaved] = useState(start.saved);
   const [tab, setTab] = useState(sections[0].key);
-  const [open, setOpen] = useState<Set<string>>(start.open);
+  const [open, setOpen] = useState<Set<string>>(() => new Set());
   const focusKey = useRef<string | null>(null);
   const [status, setStatus] = useState<{ ok: boolean; message: string } | null>(null);
   const [pending, startSave] = useTransition();
@@ -205,18 +203,28 @@ export default function Editor({ initial, username }: { initial: ResumeData; use
                   const isOpen = open.has(k);
                   const panel = `acc-${k}`;
                   const title = text(item[active.itemTitle]) || `New ${active.itemNoun}`;
-                  const meta = [text(item.subtitle), text(item.when)].filter(Boolean).join(" · ") || (Array.isArray(item.items) ? `${item.items.filter(Boolean).length} skills` : "");
+                  const meta = [text(item.subtitle), text(item.when), text(item.text)].filter(Boolean).join(" · ") || (Array.isArray(item.items) ? `${item.items.filter(Boolean).length} skills` : "");
                   return (
                     <li key={k} className={styles.acc} data-k={k} data-open={isOpen || undefined}>
-                      <h3>
-                        <button type="button" className={styles.accHead} aria-expanded={isOpen} aria-controls={panel} onClick={() => toggle(k)}>
-                          <span className={styles.accText}>
-                            <span className={styles.accTitle}>{title}</span>
-                            {meta && <span className={styles.accMeta}>{meta}</span>}
-                          </span>
-                          <span className={styles.chevron} aria-hidden="true" />
-                        </button>
-                      </h3>
+                      <div className={styles.accBar}>
+                        <h3 className={styles.accHeading}>
+                          <button type="button" className={styles.accHead} aria-expanded={isOpen} aria-controls={panel} onClick={() => toggle(k)}>
+                            <span className={styles.accText}>
+                              <span className={styles.accTitle}>{title}</span>
+                              {meta && <span className={styles.accMeta}>{meta}</span>}
+                            </span>
+                            <span className={styles.chevron} aria-hidden="true" />
+                          </button>
+                        </h3>
+                        <div className={styles.moves}>
+                          <button type="button" className={styles.arrow} disabled={i === 0} aria-label={`Move ${title} up`} title="Move up" onClick={() => move(active.key, i, -1)}>
+                            ↑
+                          </button>
+                          <button type="button" className={styles.arrow} disabled={i === all.length - 1} aria-label={`Move ${title} down`} title="Move down" onClick={() => move(active.key, i, 1)}>
+                            ↓
+                          </button>
+                        </div>
+                      </div>
                       {isOpen && (
                         <div id={panel} className={styles.accBody}>
                           <Fields
@@ -225,12 +233,6 @@ export default function Editor({ initial, username }: { initial: ResumeData; use
                             onChange={(v) => setList(active.key, list(data[active.key]).map((x, j) => (j === i ? v : x)))}
                           />
                           <div className={styles.accFoot}>
-                            <button type="button" className={styles.ghost} disabled={i === 0} onClick={() => move(active.key, i, -1)}>
-                              ↑ Move up
-                            </button>
-                            <button type="button" className={styles.ghost} disabled={i === all.length - 1} onClick={() => move(active.key, i, 1)}>
-                              ↓ Move down
-                            </button>
                             <button type="button" className={styles.danger} onClick={() => remove(active, i)}>
                               Remove
                             </button>

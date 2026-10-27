@@ -15,27 +15,26 @@ export const site = {
   /** Shown under the hero tagline. */
   aside: "Plays games. Reads books. Runs on coffee.",
 
-  /** Headings per section. `pageSize` paginates once a list has more entries than that. */
+  /** Headings per section. `sub` lists the wordings; the page shows one at random per load. `pageSize` paginates once a list has more entries than that. */
   sections: {
-    work: { title: "Work", sub: "Newest first. Open a role for the details.", pageSize: 3 },
-    projects: { title: "Projects", sub: "Side quests, cleared.", pageSize: 4 },
-    research: { title: "Research", sub: "Papers, with links as they land.", pageSize: 4 },
-    stack: { title: "Stack", sub: "My loadout." },
-    education: { title: "Education", sub: "Two degrees, one long reading list." },
-    community: { title: "Community", sub: "Multiplayer mode." },
+    work: { title: "Work", sub: ["The quest log.", "The order history."], pageSize: 3 },
+    projects: { title: "Projects", sub: ["Built for fun, shipped anyway.", "Brewed for fun, served anyway."], pageSize: 4 },
+    research: { title: "Research", sub: ["Questions I got to chase, in print.", "Questions I got to steep, in print."], pageSize: 4 },
+    stack: { title: "Stack", sub: ["My loadout.", "The house blend."] },
+    education: { title: "Education", sub: ["Where I levelled up.", "Where I got my roast level up."] },
+    community: { title: "Community", sub: ["Co-op mode.", "Best shared over a pot."] },
   },
 
   /** Shown on a research entry that has no links yet. */
   paperPending: "Paper link on its way",
+  paperLink: "Read the paper",
 
   scholar: { label: "Google Scholar", pending: "Google Scholar, soon" },
 
   contact: {
     title: "Say hello",
-    sub: "Replies faster than coffee cools.",
-    hint: "Click to copy.",
+    sub: ["Press start.", "First round's on me."],
     copied: "Copied. Go refill your coffee.",
-    mail: "Or open your mail app.",
     now: [
       { label: "Playing", text: "A backlog that never shrinks" },
       { label: "Reading", text: "Three books, none finished" },

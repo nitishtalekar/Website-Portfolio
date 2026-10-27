@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import Icon from "@/components/Icon";
+import Logo from "@/components/Logo";
 import { getResume } from "@/lib/backbone";
 import { getAdmin } from "@/lib/session";
 import Editor from "./Editor";
@@ -14,6 +16,15 @@ export const metadata: Metadata = {
 export default function AdminPage() {
   return (
     <div className={styles.root}>
+      <header className={styles.siteBar}>
+        <a href="/" className={styles.monogram} aria-label="Back to the site">
+          <Logo />
+        </a>
+        <span className={styles.here}>
+          <Icon name="sword" size={18} />
+          <span>Admin</span>
+        </span>
+      </header>
       <Suspense fallback={<p className={styles.note}>Loading…</p>}>
         <Gate />
       </Suspense>

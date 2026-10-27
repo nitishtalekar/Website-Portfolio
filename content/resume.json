@@ -247,17 +247,7 @@
       "when": "2018 – 2020",
       "title": "CodeCell RGIT",
       "subtitle": "Founder",
-      "summary": "Founded a community of 200+ student developers. Ran city-level hackathons, seminars on web development and Python, and led 5+ cross-functional teams on real software projects.",
-      "highlights": [
-        {
-          "value": "200+",
-          "label": "students"
-        },
-        {
-          "value": "5+",
-          "label": "teams led"
-        }
-      ]
+      "summary": "Founded a community of 200+ student developers. Ran city-level hackathons, seminars on web development and Python, and led 5+ cross-functional teams on real software projects."
     }
   ],
   "projects": [
@@ -315,6 +305,20 @@
         "Python3",
         "Tkinter"
       ]
+    }
+  ],
+  "now": [
+    {
+      "label": "Playing",
+      "text": "A backlog that never shrinks"
+    },
+    {
+      "label": "Reading",
+      "text": "Three books, none finished"
+    },
+    {
+      "label": "Drinking",
+      "text": "Coffee, obviously"
     }
   ]
 }

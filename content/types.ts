@@ -46,7 +46,8 @@ export interface Row {
 
 interface Section {
   title: string;
-  sub: string;
+  /** One or more wordings; the page picks one at random on each load. */
+  sub: string | readonly string[];
 }
 
 export interface RowSection extends Section {
@@ -75,9 +76,7 @@ export interface Resume {
   education: RowSection;
   community: RowSection;
   contact: Section & {
-    hint: string;
     copied: string;
-    mail: string;
     now: { label: string; text: string }[];
   };
 }
@@ -94,6 +93,8 @@ export interface Entry {
   details?: { label: string; value: string }[];
   tags?: string[];
   links?: { label: string; url: string }[];
+  /** Research only: the paper itself. */
+  url?: string;
   /** Projects only. */
   icon?: string;
   github?: string;
@@ -118,4 +119,6 @@ export interface ResumeData {
   research: Entry[];
   community: Entry[];
   projects: Entry[];
+  /** The "playing / reading / drinking" lines on the contact section. */
+  now: { label: string; text: string }[];
 }

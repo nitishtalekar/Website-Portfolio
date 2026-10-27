@@ -14,11 +14,15 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(
 
 /** Rows need a stable key for expand/collapse; derive it from position and title so the data doesn't carry ids. */
 function rows(entries: Entry[], pending?: string): Row[] {
-  return entries.map((e, i) => ({
-    ...e,
-    id: `${i}-${slug(e.title)}`,
-    ...(pending && !e.links?.length ? { pending } : {}),
-  }));
+  return entries.map(({ url, ...e }, i) => {
+    const links = url ? [{ label: site.paperLink, url }] : e.links;
+    return {
+      ...e,
+      ...(links?.length ? { links } : {}),
+      id: `${i}-${slug(e.title)}`,
+      ...(pending && !links?.length ? { pending } : {}),
+    };
+  });
 }
 
 /** Projects show their links as icons on the card, never as text. Older entries kept them in a free-form list; fold those into the two fixed slots. */
@@ -53,6 +57,6 @@ export function compose(data: ResumeData): Resume {
     stack: { ...s.stack, groups: data.stack },
     education: { ...s.education, items: rows(data.education) },
     community: { ...s.community, items: rows(data.community) },
-    contact: { ...contact, now: [...contact.now] },
+    contact: { ...contact, now: data.now ?? [...contact.now] },
   };
 }
