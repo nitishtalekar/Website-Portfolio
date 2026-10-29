@@ -9,6 +9,7 @@ export const site = {
     { id: "intro", label: "Hello", icon: "togocode" },
     { id: "background", label: "Background", icon: "sword" },
     { id: "projects", label: "Projects", icon: "console" },
+    { id: "artwork", label: "Artwork", icon: "pencil" },
     { id: "studio", label: "Studio", icon: "mug" },
     { id: "contact", label: "Contact", icon: "bean" },
   ],
@@ -37,6 +38,7 @@ export const site = {
     research: { title: "Research", sub: ["Questions I got to chase, in print.", "Questions I got to steep, in print."], pageSize: 4, mobilePageSize: 2 },
     stack: { title: "Stack", sub: ["My loadout.", "The house blend."] },
     education: { title: "Education", sub: ["Where I levelled up.", "Where I got my roast level up."] },
+    artwork: { title: "Artwork", sub: ["Pixels, pencils and detours.", "The sketchbook, unlocked."], pageSize: 4, mobilePageSize: 2 },
     community: { title: "Community", sub: ["Co-op mode.", "Best shared over a pot."] },
   },
 

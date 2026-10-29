@@ -1,3 +1,4 @@
+import { resumeData as bundled } from "./resume";
 import { site } from "./site";
 import type { Entry, Resume, ResumeData, Row } from "./types";
 
@@ -57,6 +58,8 @@ export function compose(data: ResumeData): Resume {
     stack: { ...s.stack, groups: data.stack },
     education: { ...s.education, items: rows(data.education) },
     community: { ...s.community, items: rows(data.community) },
+    // A saved document that predates the artwork chapter falls back to the bundled folder.
+    artwork: { ...s.artwork, folder: (data.artwork ? data.artwork.folder : bundled.artwork?.folder) ?? "" },
     contact: { ...contact, now: data.now ?? [...contact.now] },
   };
 }

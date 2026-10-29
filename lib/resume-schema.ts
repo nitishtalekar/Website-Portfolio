@@ -109,6 +109,21 @@ export const sections: Field[] = [
   },
   entries("community", "Community", "entry", [title, subtitle, when, summary, details]),
   {
+    kind: "object",
+    key: "artwork",
+    label: "Artwork",
+    optional: true,
+    fields: [
+      {
+        kind: "text",
+        key: "folder",
+        label: "Google Drive folder",
+        optional: true,
+        hint: "Paste the folder link. It must be shared as Anyone with the link → Viewer. Every PNG in it appears on the site.",
+      },
+    ],
+  },
+  {
     kind: "list",
     key: "now",
     label: "Contact",

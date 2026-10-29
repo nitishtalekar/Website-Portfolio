@@ -77,6 +77,8 @@ export interface Resume {
   stack: Section & { groups: { label: string; items: string[] }[] };
   education: RowSection;
   community: RowSection;
+  /** `folder` is the Google Drive folder id; empty means no folder is set. */
+  artwork: Section & { pageSize?: number; mobilePageSize?: number; folder: string };
   contact: Section & {
     copied: string;
     now: { label: string; text: string }[];
@@ -123,4 +125,6 @@ export interface ResumeData {
   projects: Entry[];
   /** The "playing / reading / drinking" lines on the contact section. */
   now: { label: string; text: string }[];
+  /** Where the artwork chapter reads its PNGs from. Optional: older saved documents don't have it. */
+  artwork?: { folder?: string };
 }

@@ -1,5 +1,6 @@
 import Cards from "@/components/Cards";
 import Chapters from "@/components/Chapters";
+import Gallery from "@/components/Gallery";
 import CheatCode from "@/components/CheatCode";
 import Contact from "@/components/Contact";
 import Hero from "@/components/Hero";
@@ -16,6 +17,7 @@ import Tabs from "@/components/Tabs";
 import { site } from "@/content/site";
 import Timeline from "@/components/Timeline";
 import { getPublicResume } from "@/lib/backbone";
+import { listArtwork } from "@/lib/drive";
 
 /**
  * Everything rendered here comes from the resume stored in Backbone (edited at /admin),
@@ -27,7 +29,8 @@ const tabIcons = { work: "sword", education: "scholar", stack: "server", researc
 
 export default async function Home() {
   const resume = await getPublicResume();
-  const { work, projects, research, stack, education, community, contact, chapters } = resume;
+  const { work, projects, research, stack, education, community, contact, chapters, artwork } = resume;
+  const pieces = await listArtwork(artwork.folder);
   const icon = (id: string) => chapters.find((c) => c.id === id)?.icon;
 
   return (
@@ -116,6 +119,13 @@ export default async function Home() {
           <Paged count={projects.items.length} pageSize={projects.pageSize}>
             <SectionHeader id="projects" title={projects.title} sub={projects.sub} icon={icon("projects")} aside={<PagerSlot />} />
             <Cards items={projects.items} />
+          </Paged>
+        </Section>
+
+        <Section id="artwork">
+          <Paged count={pieces.length} pageSize={artwork.pageSize} mobilePageSize={artwork.mobilePageSize}>
+            <SectionHeader id="artwork" title={artwork.title} sub={artwork.sub} icon={icon("artwork")} aside={<PagerSlot />} />
+            {pieces.length ? <Gallery items={pieces} /> : <p className="pending">No artwork to show yet.</p>}
           </Paged>
         </Section>
 
