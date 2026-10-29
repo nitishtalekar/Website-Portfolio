@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nitish Talekar – Software engineer",
+  title: "Nitish Talekar",
   description:
     "Lead Software Engineer at Jabali AI building AI-generated games. Work, projects, research and writing by Nitish Talekar.",
   icons: {
