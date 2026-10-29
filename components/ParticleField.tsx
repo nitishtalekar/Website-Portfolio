@@ -40,6 +40,12 @@ function samplePoints(name: string): Float32Array | null {
   return new Float32Array(out);
 }
 
+/** Icons that are drawn larger than the default size. */
+const SCALE: Record<string, number> = { togocode: 1.35 };
+
+/** Icons that get more particles than the default count. */
+const DENSITY: Record<string, number> = { togocode: 1.8 };
+
 /** Nothing is drawn this close to the screen edge, so no dot ever sits against it. */
 const EDGE = 16;
 
@@ -97,7 +103,7 @@ export default function ParticleField({ chapters }: { chapters: readonly Chapter
       wide = W >= 900;
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
-      const want = W < 700 ? 1000 : 1700;
+      const want = Math.round((W < 700 ? 1000 : 1700) * (DENSITY[motif] ?? 1));
       if (want === N) return;
       const keep = Math.min(N, want);
       const grow = <T extends Float32Array | Uint8Array>(a: T, Ctor: new (n: number) => T): T => {
@@ -148,6 +154,7 @@ export default function ParticleField({ chapters }: { chapters: readonly Chapter
     const setMotif = (name: string) => {
       if (!name || name === motif) return;
       motif = name;
+      resize(); // some icons use more particles
       readColor();
       assign(name);
       ramp = 0;
@@ -222,8 +229,10 @@ export default function ParticleField({ chapters }: { chapters: readonly Chapter
     // ---- per-frame geometry ----------------------------------------------
     // Icon centre, size, and the scroll-driven leftward drift shared by all particles.
     const frame = { cx: 0, cy: 0, size: 0 };
+    let zoom = SCALE[motif] ?? 1; // eases between icons' scales
     const place = () => {
-      frame.size = Math.min(H * 0.64, W * (wide ? 0.4 : 0.82));
+      zoom += ((SCALE[motif] ?? 1) - zoom) * 0.08;
+      frame.size = Math.min(H * 0.64, W * (wide ? 0.4 : 0.82)) * zoom;
       // Phase is 0 at the middle of a chapter and +-0.5 as the next one takes over.
       const p = ((((scrollY / H + 0.5) % 1) + 1) % 1) - 0.5;
       // The icon slides left as you scroll on, so a new one arrives from the right.

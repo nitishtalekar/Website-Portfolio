@@ -6,9 +6,9 @@
 export const site = {
   /** Nav order. `id` must match a section id rendered in app/page.tsx. `icon` is a name from components/Icon.tsx. */
   chapters: [
-    { id: "intro", label: "Hello", icon: "cup" },
+    { id: "intro", label: "Hello", icon: "togocode" },
     { id: "background", label: "Background", icon: "sword" },
-    { id: "projects", label: "Projects", icon: "gamepad" },
+    { id: "projects", label: "Projects", icon: "console" },
     { id: "contact", label: "Contact", icon: "bean" },
   ],
 

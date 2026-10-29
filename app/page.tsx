@@ -21,7 +21,7 @@ import { getPublicResume } from "@/lib/backbone";
  * Each chapter has its own form (list, cards, book stack, inventory,
  * path, statement), all drawn from the same tokens.
  */
-const tabIcons = { work: "sword", education: "glasses", stack: "dice", research: "book" } as const;
+const tabIcons = { work: "sword", education: "scholar", stack: "server", research: "openbook" } as const;
 
 export default async function Home() {
   const resume = await getPublicResume();
