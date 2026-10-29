@@ -15,7 +15,7 @@ export default function Hero({ resume }: { resume: Resume }) {
         <div className={styles.posterText}>
           <p className={styles.status}>
             <span className={styles.dot} aria-hidden="true" />
-            {p.role}, {p.org}
+            {[p.role, p.org].filter((s) => s?.trim()).join(", ")}
           </p>
           <h1 id="intro-title" className={styles.name}>
             <span className={styles.sr}>

@@ -9,8 +9,23 @@ export const site = {
     { id: "intro", label: "Hello", icon: "togocode" },
     { id: "background", label: "Background", icon: "sword" },
     { id: "projects", label: "Projects", icon: "console" },
+    { id: "studio", label: "Studio", icon: "mug" },
     { id: "contact", label: "Contact", icon: "bean" },
   ],
+
+  /** The joint studio with a friend. Logo lives at public/coffeecoders_logo.png. */
+  studio: {
+    title: "Studio",
+    sub: ["Co-op mode, with a business card.", "A second pot, brewed with a friend."],
+    name: "CoffeeCoders",
+    tagline: "The place where Caffeine creates Code.",
+    about:
+      "Two friends, one pot of coffee, and a shared itch to build. We write code for fun, and to solve the problems we want solved.",
+    url: "https://coffeecoders.cc/",
+    logo: "/coffeecoders_logo.png",
+    people: ["Nitish Talekar", "Sarvesh Wanode"],
+    cta: "Visit coffeecoders.cc",
+  },
 
   /** Shown under the hero tagline. */
   aside: "Fueled by coffee, good books, and one more level.",

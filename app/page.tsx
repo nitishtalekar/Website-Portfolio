@@ -11,7 +11,9 @@ import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
 import Shelf from "@/components/Shelf";
 import Statement from "@/components/Statement";
+import Studio from "@/components/Studio";
 import Tabs from "@/components/Tabs";
+import { site } from "@/content/site";
 import Timeline from "@/components/Timeline";
 import { getPublicResume } from "@/lib/backbone";
 
@@ -115,6 +117,11 @@ export default async function Home() {
             <SectionHeader id="projects" title={projects.title} sub={projects.sub} icon={icon("projects")} aside={<PagerSlot />} />
             <Cards items={projects.items} />
           </Paged>
+        </Section>
+
+        <Section id="studio">
+          <SectionHeader id="studio" title={site.studio.title} sub={site.studio.sub} icon={icon("studio")} />
+          <Studio {...site.studio} />
         </Section>
 
         <Section id="contact">
