@@ -25,7 +25,7 @@ import { listArtwork } from "@/lib/drive";
  * Each chapter has its own form (list, cards, book stack, inventory,
  * path, statement), all drawn from the same tokens.
  */
-const tabIcons = { work: "sword", education: "scholar", stack: "server", research: "openbook" } as const;
+const tabIcons = { work: "sword", education: "scholar", stack: "server" } as const;
 
 export default async function Home() {
   const resume = await getPublicResume();
@@ -79,28 +79,6 @@ export default async function Home() {
                 ),
               },
               {
-                id: "research",
-                label: research.title,
-                icon: tabIcons.research,
-                panel: (
-                  <>
-                    <Paged count={research.items.length} pageSize={research.pageSize} mobilePageSize={research.mobilePageSize}>
-                      <SectionHeader id="research" title={research.title} sub={research.sub} icon={tabIcons.research} aside={<PagerSlot />} />
-                      <Shelf items={research.items} />
-                    </Paged>
-                    <p className="pending" style={{ marginTop: "1.25rem", fontSize: "0.9375rem" }}>
-                      {research.scholar.url ? (
-                        <a className="link" href={research.scholar.url} target="_blank" rel="noopener noreferrer">
-                          {research.scholar.label}
-                        </a>
-                      ) : (
-                        research.scholar.pending
-                      )}
-                    </p>
-                  </>
-                ),
-              },
-              {
                 id: "community",
                 label: community.title,
                 icon: "heart",
@@ -120,6 +98,22 @@ export default async function Home() {
             <SectionHeader id="projects" title={projects.title} sub={projects.sub} icon={icon("projects")} aside={<PagerSlot />} />
             <Cards items={projects.items} />
           </Paged>
+        </Section>
+
+        <Section id="research">
+          <Paged count={research.items.length} pageSize={research.pageSize} mobilePageSize={research.mobilePageSize}>
+            <SectionHeader id="research" title={research.title} sub={research.sub} icon={icon("research")} aside={<PagerSlot />} />
+            <Shelf items={research.items} />
+          </Paged>
+          <p className="pending" style={{ marginTop: "1.25rem", fontSize: "0.9375rem" }}>
+            {research.scholar.url ? (
+              <a className="link" href={research.scholar.url} target="_blank" rel="noopener noreferrer">
+                {research.scholar.label}
+              </a>
+            ) : (
+              research.scholar.pending
+            )}
+          </p>
         </Section>
 
         <Section id="artwork">
